@@ -1,6 +1,6 @@
+import 'package:falcon_vision/screens/login/login_view.dart';
 import 'package:flutter/material.dart';
-import 'screens/login/login.dart';
-import 'package:responsive_builder/responsive_builder.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: Login(),
+      home: LoginView(),
     );
   }
 }
