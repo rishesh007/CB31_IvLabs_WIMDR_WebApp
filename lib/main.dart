@@ -1,4 +1,4 @@
-import 'package:falcon_vision/screens/login/login_view.dart';
+import 'package:falcon_vision/screens/main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,8 +14,10 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: LoginView(),
+      title: 'Falcon Vision',
+      home: Scaffold(
+        body: MainScreen(),
+      ),
     );
   }
 }
