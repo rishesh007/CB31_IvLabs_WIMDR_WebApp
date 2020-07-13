@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   responsive_builder: ^0.1.5
-
+  fl_chart: ^0.10.1
   
 
 
