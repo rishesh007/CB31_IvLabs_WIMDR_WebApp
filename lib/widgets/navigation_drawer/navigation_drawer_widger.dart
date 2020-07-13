@@ -4,6 +4,10 @@ import 'navigation_model.dart';
 import 'navigation_theme.dart';
 
 class NavigationDrawer extends StatefulWidget {
+  // double navBarWidth;
+  final Function changeScreen;
+  final Function changeWidth;
+  NavigationDrawer({this.changeScreen, this.changeWidth});
   @override
   _NavigationDrawerState createState() => _NavigationDrawerState();
 }
@@ -28,13 +32,16 @@ class _NavigationDrawerState extends State<NavigationDrawer>
 
   @override
   Widget build(BuildContext context) {
+    Function changeWidth = widget.changeWidth;
+    Function changeScreen = widget.changeScreen;
     return AnimatedBuilder(
       animation: _animationController,
-      builder: (context, widget) => getWidget(context, widget),
+      builder: (context, widget) =>
+          getWidget(context, widget, changeWidth, changeScreen),
     );
   }
 
-  Widget getWidget(context, widget) {
+  Widget getWidget(context, widget, changeWidth, changeScreen) {
     return Material(
       elevation: 80.0,
       child: Container(
@@ -49,16 +56,17 @@ class _NavigationDrawerState extends State<NavigationDrawer>
                   isCollapsed
                       ? _animationController.forward()
                       : _animationController.reverse();
+                  changeWidth();
                 });
               },
               title: 'IvLabs',
               icon: Icons.person,
               isAnimatedIcon: true,
-              
               animationController: _animationController,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
               child: Container(
                 height: 2.0,
                 color: Colors.grey,
@@ -74,6 +82,7 @@ class _NavigationDrawerState extends State<NavigationDrawer>
                     onTap: () {
                       setState(() {
                         currentSelectedIndex = counter;
+                        changeScreen(counter);
                       });
                     },
                     isSelected: currentSelectedIndex == counter,
