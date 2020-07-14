@@ -1,3 +1,4 @@
+import 'package:falcon_vision/widgets/custom_drop_down/custom_drop_down.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -22,45 +23,11 @@ class _TopNavBarState extends State<TopNavBar> {
         color: Colors.white,
         child: Row(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                width: 190.0,
-                child: DropdownButton<String>(
-                  value: dropdownValue,
-                  icon: Icon(
-                    Icons.arrow_downward,
-                    color: Colors.blueGrey[800],
-                  ),
-                  iconSize: 24,
-                  elevation: 16,
-                  style: TextStyle(color: Colors.blueGrey[800], fontSize: 16),
-                  underline: Container(
-                    height: 0,
-                    color: Colors.blueGrey[800],
-                  ),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropdownValue = newValue;
-                    });
-                  },
-                  items: <String>[
-                    'Bajaj Nagar Gate',
-                    'Yashwant Nagar Gate',
-                    'IT Park Gate'
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                        value,
-                        style: TextStyle(
-                          color: Colors.blueGrey[800],
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
+            Container(
+              padding: EdgeInsets.fromLTRB(15,0,0,0),
+              color: Colors.transparent,
+              width: 300.0,
+              child: CustomDropdown(text: 'Call To Action',),
             ),
             Expanded(
               child: Container(),
@@ -99,3 +66,40 @@ class _TopNavBarState extends State<TopNavBar> {
     );
   }
 }
+
+// CustomDropdown(text: 'Call To Action',),
+
+// DropdownButton<String>(
+//                   value: dropdownValue,
+//                   icon: Icon(
+//                     Icons.arrow_downward,
+//                     color: Colors.blueGrey[800],
+//                   ),
+//                   iconSize: 24,
+//                   elevation: 16,
+//                   style: TextStyle(color: Colors.blueGrey[800], fontSize: 16),
+//                   underline: Container(
+//                     height: 0,
+//                     color: Colors.blueGrey[800],
+//                   ),
+//                   onChanged: (String newValue) {
+//                     setState(() {
+//                       dropdownValue = newValue;
+//                     });
+//                   },
+//                   items: <String>[
+//                     'Bajaj Nagar Gate',
+//                     'Yashwant Nagar Gate',
+//                     'IT Park Gate'
+//                   ].map<DropdownMenuItem<String>>((String value) {
+//                     return DropdownMenuItem<String>(
+//                       value: value,
+//                       child: Text(
+//                         value,
+//                         style: TextStyle(
+//                           color: Colors.blueGrey[800],
+//                         ),
+//                       ),
+//                     );
+//                   }).toList(),
+//                 ),
