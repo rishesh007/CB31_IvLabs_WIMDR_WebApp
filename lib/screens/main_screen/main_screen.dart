@@ -11,43 +11,64 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
-  double navBarWidth = 210;
+class _MainScreenState extends State<MainScreen>
+    with SingleTickerProviderStateMixin {
+  // double navBarWidth = 230;
   static num screen = 1;
+  AnimationController _animationController;
+  Animation<double> widthAnimation;
 
-  void changeWidth() {
+  @override
+  void initState() {
+    super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    widthAnimation =
+        Tween<double>(begin: 230, end: 70).animate(_animationController);
+  }
+
+  void changeWidth(bool isCollapsed) {
     setState(() {
-      navBarWidth = (navBarWidth == 210) ? 70 : 210;
-      // print(navBarWidth);
+      // isCollapsed = !isCollapsed;
+      isCollapsed
+          ? _animationController.forward()
+          : _animationController.reverse();
     });
   }
 
   void changeScreen(num val) {
     setState(() {
-      screen = val+1;
+      screen = val + 1;
     });
+  }
+
+  void navBarAnimation(bool isCollapsed) {
+    
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        NavigationDrawer(
-          changeWidth: changeWidth,
-          changeScreen: changeScreen,
-        ),
-        Column(
-          children: <Widget>[
-            TopNavBar(
-              width: MediaQuery.of(context).size.width - navBarWidth,
-            ),
-            if (screen == 1) DashboardView(width: MediaQuery.of(context).size.width - navBarWidth,),
-            if (screen == 2) NotificationView(),
-            if (screen == 3) EventsView(),
-            if (screen == 4) SettingsView(),
-          ],
-        ),
-      ],
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, widget) => Row(
+        children: <Widget>[
+          NavigationDrawer(
+            changeWidth: changeWidth,
+            changeScreen: changeScreen,
+          ),
+          Column(
+            children: <Widget>[
+              TopNavBar(
+                width: MediaQuery.of(context).size.width - widthAnimation.value,
+              ),
+              if (screen == 1) DashboardView(width: MediaQuery.of(context).size.width - widthAnimation.value,),
+              if (screen == 2) NotificationView(),
+              if (screen == 3) EventsView(),
+              if (screen == 4) SettingsView(),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
