@@ -14,7 +14,7 @@ class NavigationDrawer extends StatefulWidget {
 
 class _NavigationDrawerState extends State<NavigationDrawer>
     with SingleTickerProviderStateMixin {
-  double maxWidth = 210;
+  double maxWidth = 230;
   double minWidth = 70;
   bool isCollapsed = false;
   AnimationController _animationController;
@@ -49,24 +49,27 @@ class _NavigationDrawerState extends State<NavigationDrawer>
         color: drawerBackgroundColor,
         child: Column(
           children: <Widget>[
-            ListTileView(
-              onTap: () {
-                setState(() {
-                  isCollapsed = !isCollapsed;
-                  isCollapsed
-                      ? _animationController.forward()
-                      : _animationController.reverse();
-                  changeWidth();
-                });
-              },
-              title: 'IvLabs',
-              icon: Icons.person,
-              isAnimatedIcon: true,
-              animationController: _animationController,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0,8,0,0),
+              child: ListTileView(
+                onTap: () {
+                  setState(() {
+                    isCollapsed = !isCollapsed;
+                    isCollapsed
+                        ? _animationController.forward()
+                        : _animationController.reverse();
+                    changeWidth(isCollapsed);
+                  });
+                },
+                title: 'IvLabs',
+                icon: Icons.person,
+                isAnimatedIcon: true,
+                animationController: _animationController,
+              ),
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0),
+                  const EdgeInsets.fromLTRB(8,8,8,15),
               child: Container(
                 height: 2.0,
                 color: Colors.grey,

@@ -28,7 +28,7 @@ class _ListTileViewState extends State<ListTileView> {
   void initState() {
     super.initState();
     widthAnimation =
-        Tween<double>(begin: 200, end: 70).animate(widget.animationController);
+        Tween<double>(begin: 230, end: 70).animate(widget.animationController);
     sizedBoxAnimation =
         Tween<double>(begin: 10, end: 0).animate(widget.animationController);
   }
@@ -60,7 +60,7 @@ class _ListTileViewState extends State<ListTileView> {
               size: 38.0,
             ),
             SizedBox(width: sizedBoxAnimation.value),
-            (widthAnimation.value >= 190)
+            (widthAnimation.value >= 220)
                 ? Text(widget.title,
                     style: widget.isSelected
                         ? listTitleSelectedTextStyle
