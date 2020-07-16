@@ -31,7 +31,7 @@ class _DashboardViewState extends State<DashboardView> {
                   height: 300,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: LineChartSample1(),
+                    child: PlotView(),
                   ),
                 ),
               ),
