@@ -24,8 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
   responsive_builder: ^0.1.5
-  fl_chart: ^0.10.1
-  
+  syncfusion_flutter_charts: ^18.2.45  
+  url_launcher_web: ^0.1.2
 
 
   # The following adds the Cupertino Icons font to your application.
