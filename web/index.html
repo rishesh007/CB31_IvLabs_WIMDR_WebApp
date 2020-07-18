@@ -28,6 +28,32 @@
       });
     }
   </script>
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-database.js"></script>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyCv1rDrMCUUC1AGn0wEdnMpvyzaVm3yrQM",
+      authDomain: "falcon-vision-b63de.firebaseapp.com",
+      databaseURL: "https://falcon-vision-b63de.firebaseio.com",
+      projectId: "falcon-vision-b63de",
+      storageBucket: "falcon-vision-b63de.appspot.com",
+      messagingSenderId: "219989519360",
+      appId: "1:219989519360:web:acfd2b7c7ba4c7d2907ce5",
+      measurementId: "G-L3E99M25MV"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
