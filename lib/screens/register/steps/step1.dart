@@ -1,13 +1,23 @@
+import 'package:falcon_vision/models/database.dart';
 import 'package:flutter/material.dart';
 
 class Step1 extends StatefulWidget {
+  final Function changeStep;
+  final Function setStep1;
+  const Step1({Key key, this.changeStep, this.setStep1}) : super(key: key);
   @override
   _Step1State createState() => _Step1State();
 }
 
 class _Step1State extends State<Step1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _activationKey = '12345834593'; // Enter Activation Key
+  // String _activationKey = '12345834593'; // Enter Activation Key
+  String _authId;
+  @override
+  void initState() {
+    super.initState();
+    getAuthenticationId();
+  }
 
   Widget inputActivationName() {
     return TextFormField(
@@ -24,13 +34,17 @@ class _Step1State extends State<Step1> {
         if (value.isEmpty) {
           return 'Activation Key is required';
         }
-        if (value != _activationKey) {
-          return 'Activation key didn\'t match';
+        for (int i = 0; i < authIds.length; i++) {
+          if (value == authIds[i]) {
+            return null;
+          }
         }
-        return null;
+
+        return 'Activation Key didn\t match';
       },
       onSaved: (String value) {
-        print(value);
+        _authId = value;
+        // print(_authId);
       },
     );
   }
@@ -97,7 +111,9 @@ class _Step1State extends State<Step1> {
                   'Enter your Activation key from your purchased subscription',
                   style: TextStyle(fontWeight: FontWeight.w400),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -111,11 +127,15 @@ class _Step1State extends State<Step1> {
                         height: 50.0,
                         child: RaisedButton(
                           onPressed: () {
+                            // Future<List<dynamic>> _list = getAuthenticationId();
                             if (!_formKey.currentState.validate()) {
                               return;
                             }
-
                             _formKey.currentState.save();
+                            setState(() {
+                              widget.setStep1(_authId);
+                              widget.changeStep(2);
+                            });
                           },
                           child: Text(
                             'Next Step',

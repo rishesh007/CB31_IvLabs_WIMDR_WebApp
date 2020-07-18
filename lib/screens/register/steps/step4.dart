@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Step4 extends StatefulWidget {
+  final Function changeStep;
+  final Function setStep4;
+  final Function pushData;
+  const Step4({Key key, this.changeStep, this.setStep4, this.pushData})
+      : super(key: key);
+
   @override
   _Step4State createState() => _Step4State();
 }
@@ -36,7 +42,7 @@ class _Step4State extends State<Step4> {
       },
       onSaved: (String value) {
         gate1 = value;
-        print(gate1);
+        // print(gate1);
       },
     );
   }
@@ -60,7 +66,7 @@ class _Step4State extends State<Step4> {
       },
       onSaved: (String value) {
         gate2 = value;
-        print(gate2);
+        // print(gate2);
       },
     );
   }
@@ -84,7 +90,7 @@ class _Step4State extends State<Step4> {
       },
       onSaved: (String value) {
         gate3 = value;
-        print(gate3);
+        // print(gate3);
       },
     );
   }
@@ -108,7 +114,7 @@ class _Step4State extends State<Step4> {
       },
       onSaved: (String value) {
         code11 = value;
-        print(code11);
+        // print(code11);
       },
     );
   }
@@ -132,7 +138,7 @@ class _Step4State extends State<Step4> {
       },
       onSaved: (String value) {
         code12 = value;
-        print(code12);
+        // print(code12);
       },
     );
   }
@@ -156,7 +162,7 @@ class _Step4State extends State<Step4> {
       },
       onSaved: (String value) {
         code21 = value;
-        print(code21);
+        // print(code21);
       },
     );
   }
@@ -180,7 +186,7 @@ class _Step4State extends State<Step4> {
       },
       onSaved: (String value) {
         code22 = value;
-        print(code22);
+        // print(code22);
       },
     );
   }
@@ -204,7 +210,7 @@ class _Step4State extends State<Step4> {
       },
       onSaved: (String value) {
         code31 = value;
-        print(code31);
+        // print(code31);
       },
     );
   }
@@ -228,7 +234,7 @@ class _Step4State extends State<Step4> {
       },
       onSaved: (String value) {
         code32 = value;
-        print(code32);
+        // print(code32);
       },
     );
   }
@@ -318,7 +324,8 @@ class _Step4State extends State<Step4> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
                             child: SelectableText('Gate 1'),
                           ),
                         ],
@@ -351,7 +358,8 @@ class _Step4State extends State<Step4> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
                             child: SelectableText('Gate 2'),
                           ),
                         ],
@@ -382,7 +390,8 @@ class _Step4State extends State<Step4> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
                             child: SelectableText('Gate 3'),
                           ),
                         ],
@@ -412,12 +421,23 @@ class _Step4State extends State<Step4> {
                         width: double.infinity,
                         height: 50.0,
                         child: RaisedButton(
-                          onPressed: () {
+                          onPressed: ()  {
                             if (!_formKey.currentState.validate()) {
                               return;
                             }
-
                             _formKey.currentState.save();
+                            setState(() {
+                              widget.setStep4(
+                                  [gate1, gate2, gate3],
+                                  [code11, code21, code31],
+                                  [code12, code22, code32]);
+
+                              // push database;
+                              // pushRegisterData();
+                              widget.pushData();
+                              widget.changeStep();
+                            });
+                            
                           },
                           child: Text(
                             'Submit',

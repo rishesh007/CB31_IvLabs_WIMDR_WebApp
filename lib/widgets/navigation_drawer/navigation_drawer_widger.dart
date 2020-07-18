@@ -5,9 +5,11 @@ import 'navigation_theme.dart';
 
 class NavigationDrawer extends StatefulWidget {
   // double navBarWidth;
+  final Function changeToDashboard;
   final Function changeScreen;
   final Function changeWidth;
-  NavigationDrawer({this.changeScreen, this.changeWidth});
+  NavigationDrawer(
+      {this.changeScreen, this.changeWidth,@required this.changeToDashboard});
   @override
   _NavigationDrawerState createState() => _NavigationDrawerState();
 }
@@ -50,7 +52,7 @@ class _NavigationDrawerState extends State<NavigationDrawer>
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.fromLTRB(0,8,0,0),
+              padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
               child: ListTileView(
                 onTap: () {
                   setState(() {
@@ -68,8 +70,7 @@ class _NavigationDrawerState extends State<NavigationDrawer>
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.fromLTRB(8,8,8,15),
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 15),
               child: Container(
                 height: 2.0,
                 color: Colors.grey,
@@ -86,6 +87,7 @@ class _NavigationDrawerState extends State<NavigationDrawer>
                       setState(() {
                         currentSelectedIndex = counter;
                         changeScreen(counter);
+                        
                       });
                     },
                     isSelected: currentSelectedIndex == counter,

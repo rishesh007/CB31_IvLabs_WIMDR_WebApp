@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class TopNavBar extends StatefulWidget {
+  final Function changeDropDownValue;
   final double width;
-  TopNavBar({@required this.width});
+  TopNavBar({@required this.width,@required this.changeDropDownValue});
   @override
   _TopNavBarState createState() => _TopNavBarState();
 }
@@ -22,11 +23,13 @@ class _TopNavBarState extends State<TopNavBar> {
     currentUser = 0;
   }
 
-  void changeDropDownValue(num number) {
-    setState(() {
-      dropdownValue = gateItems[number].name;
-    });
-  }
+  // void changeDropDownValue(num number) {
+  //   setState(() {
+  //     dropdownValue = gateItems[number].name;
+  //     overviewData.clear();
+  //     overviewData = gateItems[number].overviewData;
+  //   });
+  // }
 
   void changeUserData(num val) {
     setState(() {
@@ -47,9 +50,9 @@ class _TopNavBarState extends State<TopNavBar> {
             Container(
               padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
               color: Colors.transparent,
-              width: 300.0,
+              width: 350.0,
               child: GateDropDown(
-                changeDropDownValue: changeDropDownValue,
+                changeDropDownValue: widget.changeDropDownValue,
                 text: dropdownValue,
               ),
             ),

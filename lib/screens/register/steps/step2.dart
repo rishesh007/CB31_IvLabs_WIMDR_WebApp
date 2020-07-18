@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
 class Step2 extends StatefulWidget {
+  final Function changeStep;
+
+  const Step2({Key key, this.changeStep}) : super(key: key);
   @override
   _Step2State createState() => _Step2State();
 }
 
 class _Step2State extends State<Step2> {
   num selectedRadiobutton;
-  
+
   void changeInstallationLocation(num val) {
     setState(() {
       selectedRadiobutton = val;
@@ -84,10 +87,13 @@ class _Step2State extends State<Step2> {
                       padding: const EdgeInsets.symmetric(horizontal: 30.0),
                       child: SelectableText(
                         'Where is system installed ?',
-                        style: TextStyle(fontWeight: FontWeight.w400,fontSize: 18),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400, fontSize: 18),
                       ),
                     ),
-                    Expanded(child: Container(),),
+                    Expanded(
+                      child: Container(),
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -139,7 +145,11 @@ class _Step2State extends State<Step2> {
                   width: double.infinity,
                   height: 50.0,
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        widget.changeStep(3);
+                      });
+                    },
                     child: Text(
                       'Next Step',
                       style: TextStyle(

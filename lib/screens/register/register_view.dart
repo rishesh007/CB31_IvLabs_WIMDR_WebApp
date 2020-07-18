@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
 class RegisterView extends StatefulWidget {
+  final Function toggleView;
+  final Function changeStep;
+  final Function setStep0;
+  const RegisterView({Key key, this.toggleView, this.changeStep, this.setStep0})
+      : super(key: key);
+
   @override
   _RegisterViewState createState() => _RegisterViewState();
 }
 
 class _RegisterViewState extends State<RegisterView> {
+  bool loading = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String _user;
   String _number;
@@ -29,7 +36,7 @@ class _RegisterViewState extends State<RegisterView> {
         hintText: 'Mobile Number',
         prefixIcon: Padding(
           padding: const EdgeInsets.only(bottom: 5),
-          child: Icon(Icons.email),
+          child: Icon(Icons.dialpad),
         ),
       ),
       validator: (String value) {
@@ -37,7 +44,7 @@ class _RegisterViewState extends State<RegisterView> {
           return 'Mobile Number is Required';
         }
         // {^\+?[0-9-]+$}
-        if (!RegExp(r"({^\+?[0-9-]+$})").hasMatch(value)) {
+        if (value.length < 10) {
           return 'Enter a valid Mobile Number';
         }
 
@@ -45,7 +52,7 @@ class _RegisterViewState extends State<RegisterView> {
       },
       onSaved: (String value) {
         _number = value;
-        print(_number);
+        // // print(_number);
       },
     );
   }
@@ -99,7 +106,7 @@ class _RegisterViewState extends State<RegisterView> {
       },
       onSaved: (String value) {
         _user = value;
-        print(_user);
+        // print(_user);
       },
     );
   }
@@ -122,7 +129,7 @@ class _RegisterViewState extends State<RegisterView> {
       },
       onSaved: (String value) {
         _password = value;
-        print(_password);
+        // print(_password);
       },
       decoration: InputDecoration(
         hintText: 'Password',
@@ -161,7 +168,7 @@ class _RegisterViewState extends State<RegisterView> {
       },
       onSaved: (String value) {
         _cpassword = value;
-        print(_cpassword);
+        // print(_cpassword);
       },
       decoration: InputDecoration(
         hintText: 'Retype Password',
@@ -185,7 +192,9 @@ class _RegisterViewState extends State<RegisterView> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: <Widget>[
-                SizedBox(height: 40,),
+                SizedBox(
+                  height: 40,
+                ),
                 Center(
                   child: Image(
                     image: AssetImage('images/falcon.png'),
@@ -193,33 +202,49 @@ class _RegisterViewState extends State<RegisterView> {
                     height: 120.0,
                   ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 SelectableText(
                   'Sign Up',
                   style: TextStyle(fontSize: 36, fontWeight: FontWeight.w600),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 SelectableText(
                   'Let\'s get you on board',
                   style: TextStyle(
                     fontSize: 18,
                   ),
                 ),
-                SizedBox(height: 50,),
+                SizedBox(
+                  height: 50,
+                ),
                 Form(
                   key: _formKey,
                   child: Column(
                     children: <Widget>[
                       inputUserName(),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       inputEmail(),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       inputNumber(),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       inputPassword(),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       inputConfirmPassword(),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         children: <Widget>[
                           Checkbox(
@@ -236,17 +261,27 @@ class _RegisterViewState extends State<RegisterView> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Container(
                         width: double.infinity,
                         height: 50.0,
                         child: RaisedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (!_formKey.currentState.validate()) {
+                              // setState(() => loading = true);
+
                               return;
                             }
-
                             _formKey.currentState.save();
+                            setState(() {
+                              // print(_email);
+                              widget.setStep0(
+                                  _user, _email, _number, _password);
+                              widget.changeStep(1);
+                            });
+                            
                           },
                           child: Text(
                             'Register',
@@ -259,14 +294,19 @@ class _RegisterViewState extends State<RegisterView> {
                           color: Colors.blue,
                         ),
                       ),
-                      SizedBox(height: 40,),
+                      SizedBox(
+                        height: 40,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           SelectableText('Alredy have an Account?'),
                           GestureDetector(
-                            onTap: () {},
-                            child: SelectableText(
+                            onTap: () {
+                              widget.toggleView();
+                              // print('change to login');
+                            },
+                            child: Text(
                               'Sign in',
                               style: TextStyle(
                                   color: Colors.blue,

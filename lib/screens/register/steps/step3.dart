@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class Step3 extends StatefulWidget {
+  final Function setStep3;
+  final Function changeStep;
+
+  const Step3({Key key, this.changeStep, this.setStep3}) : super(key: key);
+
   @override
   _Step3State createState() => _Step3State();
 }
@@ -32,7 +37,7 @@ class _Step3State extends State<Step3> {
       },
       onSaved: (String value) {
         _place = value;
-        print(_place);
+        // print(_place);
       },
     );
   }
@@ -57,7 +62,7 @@ class _Step3State extends State<Step3> {
       },
       onSaved: (String value) {
         _city = value;
-        print(_city);
+        // print(_city);
       },
     );
   }
@@ -81,7 +86,7 @@ class _Step3State extends State<Step3> {
       },
       onSaved: (String value) {
         _state = value;
-        print(_state);
+        // print(_state);
       },
     );
   }
@@ -105,7 +110,7 @@ class _Step3State extends State<Step3> {
       },
       onSaved: (String value) {
         _pincode = value;
-        print(_pincode);
+        // print(_pincode);
       },
     );
   }
@@ -214,8 +219,12 @@ class _Step3State extends State<Step3> {
                             if (!_formKey.currentState.validate()) {
                               return;
                             }
-
                             _formKey.currentState.save();
+                            setState(() {
+                              widget.setStep3(_place, _city, _state, _pincode);
+                              widget.changeStep(4);
+                            });
+                            
                           },
                           child: Text(
                             'Next Step',
