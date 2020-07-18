@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "219989519360",
+    "firebase_url": "https://falcon-vision-b63de.firebaseio.com",
+    "project_id": "falcon-vision-b63de",
+    "storage_bucket": "falcon-vision-b63de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219989519360:android:2db79a10d9deee2f907ce5",
+        "android_client_info": {
+          "package_name": "com.example.falcon_vision"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "219989519360-9dpjkk7e5mnbm0e2uo49srm3307tvpr1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZ8uAXyFso5HrdgmFQnfH1cPkPA0SkGBs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "219989519360-9dpjkk7e5mnbm0e2uo49srm3307tvpr1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
