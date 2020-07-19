@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import 'package:falcon_vision/models/database.dart';
 import 'package:falcon_vision/models/gate.dart';
 import 'package:falcon_vision/models/overview.dart';
@@ -8,7 +7,6 @@ import 'package:falcon_vision/models/plot_data.dart';
 import 'package:falcon_vision/models/users.dart';
 import 'package:falcon_vision/screens/loading/loading.dart';
 import 'package:falcon_vision/screens/main_screen/dashborad/dashboard.dart';
-import 'package:falcon_vision/screens/main_screen/events/events.dart';
 import 'package:falcon_vision/screens/main_screen/notification/notifcation.dart';
 import 'package:falcon_vision/screens/main_screen/settings/settings.dart';
 import 'package:falcon_vision/widgets/navigation_drawer/navigation_drawer_widger.dart';
@@ -195,7 +193,7 @@ class _MainScreenState extends State<MainScreen>
   void changeScreen(num val) {
     setState(() {
       screen = val + 1;
-      if (screen == 5) {
+      if (screen == 4) {
         widget.changeToDashboard();
       }
     });
@@ -240,9 +238,16 @@ class _MainScreenState extends State<MainScreen>
                     width: MediaQuery.of(context).size.width -
                         widthAnimation.value,
                   ),
-                if (screen == 2) NotificationView(),
-                if (screen == 3) EventsView(),
-                if (screen == 4) SettingsView(),
+                if (screen == 2)
+                  NotificationView(
+                    width: MediaQuery.of(context).size.width -
+                        widthAnimation.value,
+                  ),
+                if (screen == 3)
+                  SettingsView(
+                    width: MediaQuery.of(context).size.width -
+                        widthAnimation.value,
+                  ),
               ],
             ),
           ],
