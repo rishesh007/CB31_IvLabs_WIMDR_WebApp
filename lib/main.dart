@@ -1,5 +1,4 @@
 import 'package:falcon_vision/authenticate/wrapper.dart';
-import 'package:falcon_vision/t.dart';
 import 'package:flutter/material.dart';
 
 void main() {
