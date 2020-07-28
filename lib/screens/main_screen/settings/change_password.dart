@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:falcon_vision/models/users.dart';
 import 'package:flutter/material.dart';
+import '../../../models/database.dart';
 
 class ChangePassword extends StatefulWidget {
   final double width;
@@ -17,7 +19,13 @@ class _ChangePasswordState extends State<ChangePassword> {
   String _cpassword;
   String _newpassword;
   bool isPasswordVisible = true;
-  // bool isPasswordVisible = true;
+
+  @override
+  void initState() {
+    getUsers();
+    super.initState();
+  }
+
   void changeVisibility() {
     setState(() {
       isPasswordVisible = !isPasswordVisible;
@@ -32,7 +40,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         if (value.isEmpty) {
           return 'This is a required field';
         }
-        if (_password != _cpassword) {
+        if (_newpassword != _cpassword) {
           return 'Password didn\t matched';
         }
         if (value.length < 6) {
@@ -42,14 +50,9 @@ class _ChangePasswordState extends State<ChangePassword> {
       },
       onSaved: (String value) {
         _newpassword = value;
-        // print(_password);
       },
       decoration: InputDecoration(
         hintText: 'New Password',
-        // prefixIcon: Padding(
-        //   padding: const EdgeInsets.only(bottom: 5),
-        //   child: Icon(Icons.lock),
-        // ),
         suffixIcon: isPasswordVisible
             ? IconButton(
                 icon: Icon(Icons.visibility_off),
@@ -71,30 +74,16 @@ class _ChangePasswordState extends State<ChangePassword> {
         if (value.isEmpty) {
           return 'This is a required field';
         }
-        if (_password != userList[currentUser].password) {
+        if (value != userList[currentUser].password) {
           return 'Current password didn\'t match';
         }
         return null;
       },
       onSaved: (String value) {
         _password = value;
-        // print(_password);
       },
       decoration: InputDecoration(
         hintText: 'Password',
-        // prefixIcon: Padding(
-        //   padding: const EdgeInsets.only(bottom: 5),
-        //   child: Icon(Icons.lock),
-        // ),
-        // suffixIcon: isPasswordVisible
-        //     ? IconButton(
-        //         icon: Icon(Icons.visibility_off),
-        //         onPressed: changeVisibility,
-        //       )
-        //     : IconButton(
-        //         icon: Icon(Icons.visibility),
-        //         onPressed: changeVisibility,
-        //       ),
       ),
     );
   }
@@ -107,7 +96,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         if (value.isEmpty) {
           return 'This is a required field';
         }
-        if (_password != _cpassword) {
+        if (_newpassword != _cpassword) {
           return 'Password didn\t matched';
         }
         if (value.length < 6) {
@@ -117,14 +106,9 @@ class _ChangePasswordState extends State<ChangePassword> {
       },
       onSaved: (String value) {
         _cpassword = value;
-        // print(_cpassword);
       },
       decoration: InputDecoration(
         hintText: 'Retype Password',
-        // prefixIcon: Padding(
-        //   padding: const EdgeInsets.only(bottom: 5),
-        //   child: Icon(Icons.lock),
-        // ),
       ),
     );
   }
@@ -198,7 +182,6 @@ class _ChangePasswordState extends State<ChangePassword> {
                       SizedBox(
                         height: 30,
                       ),
-
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,6 +232,24 @@ class _ChangePasswordState extends State<ChangePassword> {
                                 }
                                 _formKey.currentState.save();
                                 setState(() {
+                                  userList[currentUser].password = _newpassword;
+                                  int i;
+                                  for (i = 0; i < allUser.length; i++) {
+                                    if (allUser[i].email ==
+                                        userList[currentUser].email) {
+                                      allUser[i].password = _newpassword;
+                                      break;
+                                    }
+                                  }
+                                  Firestore.instance
+                                      .collection('user')
+                                      .document(userDocumentIds[i])
+                                      .setData({
+                                    'name': allUser[i].name,
+                                    'email': allUser[i].email,
+                                    'password': _newpassword,
+                                    'id': mainAuthId,
+                                  });
                                   widget.changeSettingScreen(0);
                                 });
                               },

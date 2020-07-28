@@ -70,6 +70,9 @@ class _MainScreenState extends State<MainScreen>
         if (list[i]['id'] == mainAuthId) {
           User _u = User.fromMap(list[i]);
           userList.add(_u);
+          if (_u.email == mainEmail) {
+            currentUser = userList.length - 1;
+          }
         }
       }
     });
@@ -96,6 +99,10 @@ class _MainScreenState extends State<MainScreen>
       for (int i = 0; i < list[0]['gateName'].length; i++) {
         _list.add(list[0]['gateName'][i].toString());
       }
+      place = list[0]['installationPlace'];
+      city = list[0]['city'];
+      state = list[0]['state'];
+      pincode = list[0]['pincode'];
     });
 
     var v = await getAllGateData(_list);
@@ -245,6 +252,12 @@ class _MainScreenState extends State<MainScreen>
     });
   }
 
+  void changeUserData(num val) {
+    setState(() {
+      currentUser = val;
+    });
+  }
+
   void changeScreen(num val) {
     setState(() {
       screen = val + 1;
@@ -297,6 +310,7 @@ class _MainScreenState extends State<MainScreen>
             Column(
               children: <Widget>[
                 TopNavBar(
+                  changeUserData: changeUserData,
                   changeDropDownValue: changeDropDownValue,
                   width:
                       MediaQuery.of(context).size.width - widthAnimation.value,

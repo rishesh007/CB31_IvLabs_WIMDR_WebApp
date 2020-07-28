@@ -18,7 +18,7 @@ class _DesktopLoginState extends State<DesktopLogin> {
   String _email;
   String _password;
   bool checkedValue = false;
-
+  String error = "";
   @override
   void initState() {
     getUsers();
@@ -230,6 +230,10 @@ class _DesktopLoginState extends State<DesktopLogin> {
                                           _formKey.currentState.save();
                                           if (!checkUserInDataBase(
                                               _email, _password)) {
+                                            setState(() {
+                                              error =
+                                                  'Email or Password didn\'t match';
+                                            });
                                             return;
                                           }
                                           setState(() {
@@ -247,6 +251,15 @@ class _DesktopLoginState extends State<DesktopLogin> {
                                           ),
                                         ),
                                         color: Colors.blue,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      error,
+                                      style: TextStyle(
+                                        color: Colors.red[900],
                                       ),
                                     ),
                                     SizedBox(

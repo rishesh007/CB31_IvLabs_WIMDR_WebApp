@@ -8,7 +8,8 @@ import 'package:flutter/rendering.dart';
 class TopNavBar extends StatefulWidget {
   final Function changeDropDownValue;
   final double width;
-  TopNavBar({@required this.width,@required this.changeDropDownValue});
+  final Function changeUserData;
+  TopNavBar({@required this.width, @required this.changeDropDownValue, this.changeUserData});
   @override
   _TopNavBarState createState() => _TopNavBarState();
 }
@@ -30,12 +31,6 @@ class _TopNavBarState extends State<TopNavBar> {
   //     overviewData = gateItems[number].overviewData;
   //   });
   // }
-
-  void changeUserData(num val) {
-    setState(() {
-      currentUser = val;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +54,11 @@ class _TopNavBarState extends State<TopNavBar> {
             Expanded(
               child: Container(),
             ),
-            
-            
             Container(
               width: 250,
               child: UserDropDown(
                 currentUser: currentUser,
-                changeUserData: changeUserData,
+                changeUserData: widget.changeUserData,
               ),
             ),
             // IconButton(icon: Icon(Icons.person), onPressed: () {}),

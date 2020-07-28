@@ -11,7 +11,7 @@ class EntryExitView extends StatefulWidget {
 
 class _EntryExitViewState extends State<EntryExitView> {
   bool view = true;
-
+  var now = new DateTime.now();
   void chageView() {
     setState(() {
       view = !view;
@@ -133,7 +133,7 @@ class _EntryExitViewState extends State<EntryExitView> {
                                     fontSize: 20, fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                '3rd Feb 2020',
+                                now.day.toString() + "-" + now.month.toString() + "-" + now.year.toString(),
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w500),
                               ),

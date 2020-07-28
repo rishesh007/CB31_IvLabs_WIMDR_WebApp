@@ -30,17 +30,17 @@ class User {
 }
 
 List<User> userList = [
-  User(
-    name: 'Rohit Lal',
-    email: 'take2rohit@gmail.com',
-    id: '321',
-    password: '123',
-    image: Image.asset(
-      'images/rohit.jpeg',
-      width: 50,
-      height: 50,
-    ),
-  ),
+  // User(
+  //   name: 'Rohit Lal',
+  //   email: 'take2rohit@gmail.com',
+  //   id: '321',
+  //   password: '123',
+  //   image: Image.asset(
+  //     'images/rohit.jpeg',
+  //     width: 50,
+  //     height: 50,
+  //   ),
+  // ),
 ];
 
 num currentUser = 0;

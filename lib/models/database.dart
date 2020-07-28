@@ -5,9 +5,14 @@ import 'package:falcon_vision/models/users.dart';
 
 List<String> authIds = [];
 List<User> allUser = [];
+List<String> userDocumentIds = [];
 String mainEmail;
 String mainPassword;
 String mainAuthId;
+String city;
+String state;
+String pincode;
+String place;
 void getAuthenticationId() async {
   List<DocumentSnapshot> templist;
   List<Map<dynamic, dynamic>> list = new List();
@@ -26,6 +31,9 @@ void getAuthenticationId() async {
 }
 
 Future<void> getUsers() async {
+  allUser.clear();
+  allUser = [];
+  userDocumentIds = [];
   List<DocumentSnapshot> templist;
   List<Map<dynamic, dynamic>> list = new List();
   CollectionReference collectionRef = Firestore.instance.collection("user");
@@ -33,6 +41,7 @@ Future<void> getUsers() async {
   templist = collectionSnapshot.documents;
 
   list = templist.map((DocumentSnapshot docSnapshot) {
+    userDocumentIds.add(docSnapshot.documentID);
     return docSnapshot.data;
   }).toList();
   // print(list);

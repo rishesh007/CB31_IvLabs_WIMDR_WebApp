@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:falcon_vision/models/database.dart';
 import 'package:falcon_vision/models/users.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +20,12 @@ class _AddUserState extends State<AddUser> {
   String _username;
   bool isPasswordVisible = true;
   // bool isPasswordVisible = true;
+  @override
+  void initState() {
+    getUsers();
+    super.initState();
+  }
+
   void changeVisibility() {
     setState(() {
       isPasswordVisible = !isPasswordVisible;
@@ -69,6 +77,7 @@ class _AddUserState extends State<AddUser> {
           return 'This is a required field';
         }
         // implement user should not present in UserList
+
         return null;
       },
       onSaved: (String value) {
@@ -83,13 +92,18 @@ class _AddUserState extends State<AddUser> {
 
   Widget inputEmail() {
     return TextFormField(
-      obscureText: true,
+      obscureText: false,
       keyboardType: TextInputType.emailAddress,
       validator: (String value) {
         if (value.isEmpty) {
           return 'This is a required field';
         }
         // implement email should not present in UserList
+        for (int i = 0; i < allUser.length; i++) {
+          if (value == allUser[i].email) {
+            return 'User already present';
+          }
+        }
         if (!RegExp(r"([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})")
             .hasMatch(value)) {
           return 'Enter a valid email';
@@ -222,22 +236,40 @@ class _AddUserState extends State<AddUser> {
                         children: <Widget>[
                           Spacer(),
                           RaisedButton(
-                              onPressed: () {
-                                if (!_formKey.currentState.validate()) {
-                                  return;
-                                }
-                                _formKey.currentState.save();
-                                setState(() {
-                                  widget.changeSettingScreen(0);
+                            onPressed: () {
+                              if (!_formKey.currentState.validate()) {
+                                return;
+                              }
+                              _formKey.currentState.save();
+                              setState(() {
+                                Firestore.instance
+                                    .collection('user')
+                                    .document()
+                                    .setData({
+                                  'name': _username,
+                                  'email': _email,
+                                  'password': _password,
+                                  'id': mainAuthId,
                                 });
-                              },
-                              child: Text(
-                                'Save Changes',
-                                style: TextStyle(
-                                    color: Colors.white70,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              color: Colors.red[900]),
+                                userList.add(
+                                  User(
+                                    email: _email,
+                                    id: mainAuthId,
+                                    name: _username,
+                                    password: _password,
+                                  ),
+                                );
+                                widget.changeSettingScreen(0);
+                              });
+                            },
+                            child: Text(
+                              'Save Changes',
+                              style: TextStyle(
+                                  color: Colors.white70,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            color: Colors.red[900],
+                          ),
                         ],
                       ),
                     ],

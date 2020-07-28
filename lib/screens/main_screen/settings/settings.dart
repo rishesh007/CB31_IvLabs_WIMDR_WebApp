@@ -1,3 +1,6 @@
+import 'package:falcon_vision/models/database.dart';
+import 'package:falcon_vision/models/gate.dart';
+import 'package:falcon_vision/models/users.dart';
 import 'package:flutter/material.dart';
 
 class SettingsView extends StatefulWidget {
@@ -54,9 +57,11 @@ class _SettingsViewState extends State<SettingsView> {
           mainText == 'Add User'
               ? RawMaterialButton(
                   onPressed: () {
-                    setState(() {
-                      onTap(screen);
-                    });
+                    if (userList.length <= 3) {
+                      setState(() {
+                        onTap(screen);
+                      });
+                    }
                   },
                   elevation: 2.0,
                   fillColor: Colors.blue[600],
@@ -73,16 +78,19 @@ class _SettingsViewState extends State<SettingsView> {
                   child: RaisedButton(
                     elevation: 2,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        side: BorderSide(color: Colors.red[900]),
-                        ),
-                        color: Colors.red[900],
+                      borderRadius: BorderRadius.circular(20.0),
+                      side: BorderSide(color: Colors.red[900]),
+                    ),
+                    color: Colors.red[900],
                     onPressed: () {
                       setState(() {
                         onTap(screen);
                       });
                     },
-                    child: Text('change',style: TextStyle(color: Colors.white),),
+                    child: Text(
+                      'change',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
         ],
@@ -122,19 +130,19 @@ class _SettingsViewState extends State<SettingsView> {
               SizedBox(
                 height: 30,
               ),
-              fieldQuery('Username\t', 'Rishesh Agarwal'),
+              fieldQuery('Username\t', userList[currentUser].name),
               SizedBox(height: 10),
-              fieldQuery('Email  \t\t', 'rishesh.pro@gmail.com'),
+              fieldQuery('Email  \t\t', userList[currentUser].email),
               SizedBox(height: 10),
-              fieldQuery('Password\t', '123456'),
+              fieldQuery('Password\t', userList[currentUser].password),
               SizedBox(height: 10),
-              fieldQuery('City  \t\t', 'Nagpur'),
+              fieldQuery('City  \t\t', city),
               SizedBox(height: 10),
-              fieldQuery('Place  \t\t', 'VNIT'),
+              fieldQuery('Place  \t\t', place),
               SizedBox(height: 10),
-              fieldQuery('State  \t\t', 'Maharashtra'),
+              fieldQuery('State  \t\t', state),
               SizedBox(height: 10),
-              fieldQuery('Pincode \t\t', '440010'),
+              fieldQuery('Pincode \t\t', pincode),
               SizedBox(
                 height: 30,
               ),
@@ -156,11 +164,11 @@ class _SettingsViewState extends State<SettingsView> {
               SizedBox(
                 height: 30,
               ),
-              fieldQuery('Gate1 \t\t', 'Ambazari Gate'),
+              fieldQuery('Gate1 \t\t', gateItems[0].name),
               SizedBox(height: 10),
-              fieldQuery('Gate2 \t\t', 'Yashwant Nagar Gate'),
+              fieldQuery('Gate2 \t\t', gateItems[1].name),
               SizedBox(height: 10),
-              fieldQuery('Gare3 \t\t', 'IT Park Gate'),
+              fieldQuery('Gare3 \t\t', gateItems[2].name),
               SizedBox(
                 height: 30,
               ),
@@ -202,7 +210,7 @@ class _SettingsViewState extends State<SettingsView> {
               ),
 
               functionWidget(widget.changeSettingScreen, 'Add User',
-                  'you can add upto 2 users', 3),
+                  'you can add upto 3 users, Total users = ${userList.length}', 3),
               // Spacer(),
               SizedBox(
                 height: 40,

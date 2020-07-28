@@ -32,11 +32,6 @@ class _TableDataState extends State<TableData> {
   List<String> vehicleAuth = ['Authorised', 'Non Authorised'];
   List<bool> checkVehicleType = [false, false, false, false];
   List<String> countList = [
-    'Car',
-    'Motorbike',
-    'Truck',
-    'Authorised',
-    'Non Authorised',
     '12:00 AM - 01:00 AM',
     '01:00 AM - 02:00 AM',
     '02:00 AM - 03:00 AM',
@@ -61,10 +56,15 @@ class _TableDataState extends State<TableData> {
     '09:00 PM - 10:00 PM',
     '10:00 PM - 11:00 PM',
     '11:00 PM - 12:00 AM',
+    'Car',
+    'Motorbike',
+    'Truck',
+    'Authorised',
+    'Non Authorised',
   ];
   List<String> selectedCountList = [];
 
-  void _openFilterList() async {
+  Future<void> _openFilterList() async {
     var list = await FilterList.showFilterList(
       context,
       allTextList: countList,
@@ -80,6 +80,56 @@ class _TableDataState extends State<TableData> {
     if (list != null) {
       setState(() {
         selectedCountList = List.from(list);
+        List<bool> visited = [];
+        for (int i = 0; i < vehicleData.length; i++) {
+          visited.add(false);
+        }
+        List<VehicleData> _v = [];
+        List<num> _query = [];
+        for (int i = 0; i < selectedCountList.length; i++) {
+          for (int j = 0; j < countList.length; j++) {
+            if (selectedCountList[i] == countList[j]) {
+              _query.add(j);
+            }
+          }
+        }
+        for (int i = 0; i < _query.length; i++) {
+          for (int j = 0; j < vehicleData.length; j++) {
+            if (_query[i] < 24) {
+              String _s = vehicleData[j].time.substring(0, 2);
+              int time = int.parse(_s);
+              if (time == _query[i]) {
+                visited[j] = true;
+              }
+            } else if (_query[i] == 24) {
+              if (vehicleData[j].vehicleType == countList[24]) {
+                visited[j] = true;
+              }
+            } else if (_query[i] == 25) {
+              if (vehicleData[j].vehicleType == countList[25]) {
+                visited[j] = true;
+              }
+            } else if (_query[i] == 26) {
+              if (vehicleData[j].vehicleType == countList[26]) {
+                visited[j] = true;
+              }
+            } else if (_query[i] == 27) {
+              if (vehicleData[j].auth != "FALSE") {
+                visited[j] = true;
+              }
+            } else if (_query[i] == 28) {
+              if (vehicleData[j].auth == "FALSE") {
+                visited[j] = true;
+              }
+            }
+          }
+        }
+        for (int i = 0; i < visited.length; i++) {
+          if (visited[i]) {
+            _v.add(vehicleData[i]);
+          }
+        }
+        vehicleData = _v;
       });
     }
   }
@@ -112,8 +162,11 @@ class _TableDataState extends State<TableData> {
           height: 50,
           // color: Colors.grey[300],
           child: InkWell(
-            onTap: () {
-              _openFilterList();
+            onTap: () async {
+              await _openFilterList();
+              for (int i = 0; i < selectedCountList.length; i++) {
+                print(selectedCountList[i]);
+              }
             },
             child: Row(
               children: <Widget>[
@@ -285,7 +338,12 @@ class DTS extends DataTableSource {
           child: Center(
             child: Text(
               vehicleData[index].numberPlate,
-              style: TextStyle(color: vehicleData[index].auth == 'FALSE' ? Colors.red[900] : Colors.blue[900],fontSize: 15, fontWeight: FontWeight.w400),
+              style: TextStyle(
+                  color: vehicleData[index].auth == 'FALSE'
+                      ? Colors.red[900]
+                      : Colors.blue[900],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400),
             ),
           ),
         ),
@@ -296,7 +354,12 @@ class DTS extends DataTableSource {
           child: Center(
             child: Text(
               vehicleData[index].time,
-              style: TextStyle(color: vehicleData[index].auth == 'FALSE' ? Colors.red[900] : Colors.blue[900],fontSize: 15, fontWeight: FontWeight.w400),
+              style: TextStyle(
+                  color: vehicleData[index].auth == 'FALSE'
+                      ? Colors.red[900]
+                      : Colors.blue[900],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400),
             ),
           ),
         ),
@@ -307,7 +370,12 @@ class DTS extends DataTableSource {
           child: Center(
             child: Text(
               vehicleData[index].auth,
-              style: TextStyle(color: vehicleData[index].auth == 'FALSE' ? Colors.red[900] : Colors.blue[900],fontSize: 15, fontWeight: FontWeight.w400),
+              style: TextStyle(
+                  color: vehicleData[index].auth == 'FALSE'
+                      ? Colors.red[900]
+                      : Colors.blue[900],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400),
             ),
           ),
         ),
@@ -318,7 +386,12 @@ class DTS extends DataTableSource {
           child: Center(
             child: Text(
               vehicleData[index].vehicleType,
-              style: TextStyle(color: vehicleData[index].auth == 'FALSE' ? Colors.red[900] : Colors.blue[900],fontSize: 15, fontWeight: FontWeight.w400),
+              style: TextStyle(
+                  color: vehicleData[index].auth == 'FALSE'
+                      ? Colors.red[900]
+                      : Colors.blue[900],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400),
             ),
           ),
         ),
@@ -329,7 +402,12 @@ class DTS extends DataTableSource {
           child: Center(
             child: Text(
               '${vehicleData[index].noOfVisits}',
-              style: TextStyle(color: vehicleData[index].auth == 'FALSE' ? Colors.red[900] : Colors.blue[900],fontSize: 15, fontWeight: FontWeight.w400),
+              style: TextStyle(
+                  color: vehicleData[index].auth == 'FALSE'
+                      ? Colors.red[900]
+                      : Colors.blue[900],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400),
             ),
           ),
         ),

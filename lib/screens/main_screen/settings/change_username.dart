@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:falcon_vision/models/database.dart';
 import 'package:falcon_vision/models/users.dart';
 import 'package:flutter/material.dart';
 
@@ -22,10 +24,6 @@ class _ChangeUsernameState extends State<ChangeUsername> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         hintText: 'Username',
-        // prefixIcon: Padding(
-        //   padding: const EdgeInsets.only(bottom: 5),
-        //   child: Icon(Icons.verified_user),
-        // ),
       ),
       validator: (String value) {
         if (value.isEmpty) {
@@ -34,7 +32,6 @@ class _ChangeUsernameState extends State<ChangeUsername> {
         if (userList[currentUser].name != value) {
           return 'Enter correct user name';
         }
-
         return null;
       },
       onSaved: (String value) {
@@ -50,10 +47,6 @@ class _ChangeUsernameState extends State<ChangeUsername> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         hintText: 'New Username',
-        // prefixIcon: Padding(
-        //   padding: const EdgeInsets.only(bottom: 5),
-        //   child: Icon(Icons.verified_user),
-        // ),
       ),
       validator: (String value) {
         if (value.isEmpty) {
@@ -171,6 +164,24 @@ class _ChangeUsernameState extends State<ChangeUsername> {
                                 }
                                 _formKey.currentState.save();
                                 setState(() {
+                                  userList[currentUser].name = _newuser;
+                                  int i;
+                                  for (i = 0; i < allUser.length; i++) {
+                                    if (allUser[i].email ==
+                                        userList[currentUser].email) {
+                                      allUser[i].name = _newuser;
+                                      break;
+                                    }
+                                  }
+                                  Firestore.instance
+                                    .collection('user')
+                                    .document(userDocumentIds[i])
+                                    .setData({
+                                  'name': _newuser,
+                                  'email': allUser[i].email,
+                                  'password': allUser[i].password,
+                                  'id': mainAuthId,
+                                });
                                   widget.changeSettingScreen(0);
                                 });
                               },
