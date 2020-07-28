@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class SettingsView extends StatefulWidget {
   final double width;
+  final Function changeSettingScreen;
   const SettingsView({
     Key key,
     this.width,
+    this.changeSettingScreen,
   }) : super(key: key);
   @override
   _SettingsViewState createState() => _SettingsViewState();
@@ -28,7 +30,8 @@ class _SettingsViewState extends State<SettingsView> {
     );
   }
 
-  Widget functionWidget(Function onTap, String mainText, String subText) {
+  Widget functionWidget(
+      Function onTap, String mainText, String subText, num screen) {
     return Container(
       padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: Row(
@@ -50,7 +53,11 @@ class _SettingsViewState extends State<SettingsView> {
           Spacer(),
           mainText == 'Add User'
               ? RawMaterialButton(
-                  onPressed: onTap,
+                  onPressed: () {
+                    setState(() {
+                      onTap(screen);
+                    });
+                  },
                   elevation: 2.0,
                   fillColor: Colors.blue[600],
                   child: Icon(
@@ -67,9 +74,15 @@ class _SettingsViewState extends State<SettingsView> {
                     elevation: 2,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
-                        side: BorderSide(color: Colors.grey[300])),
-                    onPressed: onTap,
-                    child: Text('change'),
+                        side: BorderSide(color: Colors.red[900]),
+                        ),
+                        color: Colors.red[900],
+                    onPressed: () {
+                      setState(() {
+                        onTap(screen);
+                      });
+                    },
+                    child: Text('change',style: TextStyle(color: Colors.white),),
                   ),
                 ),
         ],
@@ -169,8 +182,8 @@ class _SettingsViewState extends State<SettingsView> {
               SizedBox(
                 height: 20,
               ),
-              functionWidget(null, 'Change Username',
-                  'you can change your current username to something else'),
+              functionWidget(widget.changeSettingScreen, 'Change Username',
+                  'you can change your current username to something else', 1),
               SizedBox(
                 height: 5,
               ),
@@ -178,8 +191,8 @@ class _SettingsViewState extends State<SettingsView> {
                 height: 2,
                 color: Colors.grey[300],
               ),
-              functionWidget(null, 'Change Password',
-                  'you can change your current password to something else'),
+              functionWidget(widget.changeSettingScreen, 'Change Password',
+                  'you can change your current password to something else', 2),
               SizedBox(
                 height: 5,
               ),
@@ -188,7 +201,8 @@ class _SettingsViewState extends State<SettingsView> {
                 color: Colors.grey[300],
               ),
 
-              functionWidget(null, 'Add User', 'you can add upto 2 users'),
+              functionWidget(widget.changeSettingScreen, 'Add User',
+                  'you can add upto 2 users', 3),
               // Spacer(),
               SizedBox(
                 height: 40,
