@@ -31,17 +31,6 @@ class User {
 
 List<User> userList = [
   User(
-    name: 'Rishesh Agarwal',
-    email: 'rishesh.pro@gmail.com',
-    id: '321',
-    password: '123',
-    image: Image.asset(
-      'images/rishesh.jpeg',
-      width: 50,
-      height: 50,
-    ),
-  ),
-  User(
     name: 'Rohit Lal',
     email: 'take2rohit@gmail.com',
     id: '321',

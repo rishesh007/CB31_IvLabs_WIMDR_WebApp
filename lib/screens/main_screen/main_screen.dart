@@ -1,4 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:falcon_vision/screens/main_screen/settings/add_user.dart';
+import 'package:falcon_vision/screens/main_screen/settings/change_password.dart';
+import 'package:falcon_vision/screens/main_screen/settings/change_username.dart';
+import 'package:falcon_vision/widgets/table_widget/table_model.dart';
 import 'package:flutter/material.dart';
 import 'package:falcon_vision/models/database.dart';
 import 'package:falcon_vision/models/gate.dart';
@@ -27,10 +31,12 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
   // double navBarWidth = 230;
+
   var iskebaad = false;
   static num screen = 1;
   AnimationController _animationController;
   Animation<double> widthAnimation;
+  num _screen = 0;
 
   @override
   void initState() {
@@ -98,21 +104,47 @@ class _MainScreenState extends State<MainScreen>
 
   Future<bool> getAllGateData(List<String> _list) async {
     for (int i = 0; i < 3; i++) {
-      List<DocumentSnapshot> templist;
+      List<DocumentSnapshot> templist, templist2, templist3;
       List<Map<dynamic, dynamic>> list = new List();
+      List<Map<dynamic, dynamic>> list2 = new List();
+      List<Map<dynamic, dynamic>> list3 = new List();
       CollectionReference collectionReference = Firestore.instance
           .collection(mainAuthId)
           .document('gates')
           .collection('gate' + (i + 1).toString())
           .document('data')
           .collection('data');
+      CollectionReference collectionReference2 = Firestore.instance
+          .collection(mainAuthId)
+          .document('gates')
+          .collection('gate' + (i + 1).toString())
+          .document('view')
+          .collection('entry');
+      CollectionReference collectionReference3 = Firestore.instance
+          .collection(mainAuthId)
+          .document('gates')
+          .collection('gate' + (i + 1).toString())
+          .document('view')
+          .collection('exit');
       QuerySnapshot collectionSnapshot =
           await collectionReference.getDocuments();
+      QuerySnapshot collectionSnapshot2 =
+          await collectionReference2.getDocuments();
+      QuerySnapshot collectionSnapshot3 =
+          await collectionReference3.getDocuments();
       templist = collectionSnapshot.documents;
+      templist2 = collectionSnapshot2.documents;
+      templist3 = collectionSnapshot3.documents;
       list = templist.map((DocumentSnapshot docSnapshot) {
         return docSnapshot.data;
       }).toList();
-
+      list2 = templist2.map((DocumentSnapshot docSnapshot) {
+        return docSnapshot.data;
+      }).toList();
+      list3 = templist3.map((DocumentSnapshot docSnapshot) {
+        return docSnapshot.data;
+      }).toList();
+      // print(list2);
       setState(() {
         List<OverviewData> _over = [];
         for (int j = 1; j <= list.length; j++) {
@@ -126,12 +158,35 @@ class _MainScreenState extends State<MainScreen>
               type: (j - 1 + 3) % 3);
           _over.add(_o);
         }
-
+        List<VehicleData> _entry = [];
+        for (int j = 0; j < list2.length; j++) {
+          VehicleData _e = VehicleData(
+            auth: list2[j]['registered'].toString().toUpperCase(),
+            noOfVisits: list2[j]['visit'],
+            numberPlate: list2[j]['number'],
+            time: list2[j]['time'],
+            vehicleType: list2[j]['type'],
+          );
+          _entry.add(_e);
+        }
+        List<VehicleData> _exit = [];
+        for (int j = 0; j < list3.length; j++) {
+          VehicleData _e = VehicleData(
+            auth: list3[j]['registered'].toString().toUpperCase(),
+            noOfVisits: list3[j]['visit'],
+            numberPlate: list3[j]['number'],
+            time: list3[j]['time'],
+            vehicleType: list3[j]['type'],
+          );
+          _exit.add(_e);
+        }
         Gate _g = Gate(
           gateNumber: i,
           isSelected: (i == 0) ? true : false,
           name: _list[i],
           overviewData: _over,
+          vehicleEntryData: _entry,
+          vehicleExitData: _exit,
         );
         gateItems.add(_g);
       });
@@ -196,6 +251,9 @@ class _MainScreenState extends State<MainScreen>
       if (screen == 4) {
         widget.changeToDashboard();
       }
+      if (screen == 3) {
+        _screen = 0;
+      }
     });
   }
 
@@ -204,6 +262,14 @@ class _MainScreenState extends State<MainScreen>
       dropdownValue = gateItems[number].name;
       // overviewData.clear();
       overviewData = gateItems[number].overviewData;
+      entryData = gateItems[number].vehicleEntryData;
+      exitData = gateItems[number].vehicleExitData;
+    });
+  }
+
+  void changeSettingScreen(num val) {
+    setState(() {
+      _screen = val;
     });
   }
 
@@ -214,6 +280,8 @@ class _MainScreenState extends State<MainScreen>
     if (iskebaad) {
       setState(() {
         overviewData = gateItems[gateNumber].overviewData;
+        entryData = gateItems[gateNumber].vehicleEntryData;
+        exitData = gateItems[gateNumber].vehicleExitData;
       });
       Function changeToDashboard = widget.changeToDashboard;
       // print(gateItems[gateNumber].overviewData);
@@ -243,10 +311,29 @@ class _MainScreenState extends State<MainScreen>
                     width: MediaQuery.of(context).size.width -
                         widthAnimation.value,
                   ),
-                if (screen == 3)
+                if (screen == 3 && _screen == 0)
                   SettingsView(
                     width: MediaQuery.of(context).size.width -
                         widthAnimation.value,
+                    changeSettingScreen: changeSettingScreen,
+                  ),
+                if (screen == 3 && _screen == 1)
+                  ChangeUsername(
+                    width: MediaQuery.of(context).size.width -
+                        widthAnimation.value,
+                    changeSettingScreen: changeSettingScreen,
+                  ),
+                if (screen == 3 && _screen == 2)
+                  ChangePassword(
+                    width: MediaQuery.of(context).size.width -
+                        widthAnimation.value,
+                    changeSettingScreen: changeSettingScreen,
+                  ),
+                if (screen == 3 && _screen == 3)
+                  AddUser(
+                    width: MediaQuery.of(context).size.width -
+                        widthAnimation.value,
+                    changeSettingScreen: changeSettingScreen,
                   ),
               ],
             ),

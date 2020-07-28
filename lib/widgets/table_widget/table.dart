@@ -1,10 +1,14 @@
-import 'package:falcon_vision/widgets/table_widget/table_model.dart';
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
 
+import 'package:falcon_vision/widgets/table_widget/table_model.dart';
+
 class TableData extends StatefulWidget {
   final double width;
-  TableData({@required this.width});
+  TableData({
+    Key key,
+    this.width,
+  }) : super(key: key);
   @override
   _TableDataState createState() => _TableDataState();
 }
@@ -281,7 +285,7 @@ class DTS extends DataTableSource {
           child: Center(
             child: Text(
               vehicleData[index].numberPlate,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+              style: TextStyle(color: vehicleData[index].auth == 'FALSE' ? Colors.red[900] : Colors.blue[900],fontSize: 15, fontWeight: FontWeight.w400),
             ),
           ),
         ),
@@ -292,7 +296,7 @@ class DTS extends DataTableSource {
           child: Center(
             child: Text(
               vehicleData[index].time,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+              style: TextStyle(color: vehicleData[index].auth == 'FALSE' ? Colors.red[900] : Colors.blue[900],fontSize: 15, fontWeight: FontWeight.w400),
             ),
           ),
         ),
@@ -303,7 +307,7 @@ class DTS extends DataTableSource {
           child: Center(
             child: Text(
               vehicleData[index].auth,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+              style: TextStyle(color: vehicleData[index].auth == 'FALSE' ? Colors.red[900] : Colors.blue[900],fontSize: 15, fontWeight: FontWeight.w400),
             ),
           ),
         ),
@@ -314,7 +318,7 @@ class DTS extends DataTableSource {
           child: Center(
             child: Text(
               vehicleData[index].vehicleType,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+              style: TextStyle(color: vehicleData[index].auth == 'FALSE' ? Colors.red[900] : Colors.blue[900],fontSize: 15, fontWeight: FontWeight.w400),
             ),
           ),
         ),
@@ -325,7 +329,7 @@ class DTS extends DataTableSource {
           child: Center(
             child: Text(
               '${vehicleData[index].noOfVisits}',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+              style: TextStyle(color: vehicleData[index].auth == 'FALSE' ? Colors.red[900] : Colors.blue[900],fontSize: 15, fontWeight: FontWeight.w400),
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:falcon_vision/widgets/table_widget/table.dart';
+import 'package:falcon_vision/widgets/table_widget/table_model.dart';
 import 'package:flutter/material.dart';
 
 class EntryExitView extends StatefulWidget {
@@ -9,9 +10,28 @@ class EntryExitView extends StatefulWidget {
 }
 
 class _EntryExitViewState extends State<EntryExitView> {
-  
+  bool view = true;
+
+  void chageView() {
+    setState(() {
+      view = !view;
+    });
+  }
+
+  void getVehicleData() {
+    setState(() {
+      if (view) {
+        vehicleData = entryData;
+      } else {
+        vehicleData = exitData;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    getVehicleData();
+    // print(entryData.length);
     // print(MediaQuery.of(context).size.height);
     return Container(
       width: widget.width,
@@ -34,32 +54,68 @@ class _EntryExitViewState extends State<EntryExitView> {
                           children: <Widget>[
                             Column(
                               children: <Widget>[
-                                FlatButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Entry',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
+                                Container(
+                                  width: 150,
+                                  height: 50,
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      if (!view) {
+                                        setState(() {
+                                          chageView();
+                                          getVehicleData();
+                                        });
+                                      }
+                                    },
+                                    color: view
+                                        ? Colors.blue.withOpacity(.1)
+                                        : Colors.transparent,
+                                    child: Text(
+                                      'Entry',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 Container(
-                                    color: Colors.blue, height: 3, width: 150),
+                                    color:
+                                        view ? Colors.blue : Colors.transparent,
+                                    height: 3,
+                                    width: 150),
                               ],
                             ),
                             Column(
                               children: <Widget>[
-                                FlatButton(
-                                    onPressed: () {},
+                                Container(
+                                  width: 150,
+                                  height: 50,
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      if (view) {
+                                        setState(() {
+                                          chageView();
+                                          getVehicleData();
+                                        });
+                                      }
+                                    },
+                                    color: !view
+                                        ? Colors.blue.withOpacity(.1)
+                                        : Colors.transparent,
                                     child: Text(
                                       'Exit',
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w500),
-                                    )),
+                                    ),
+                                  ),
+                                ),
                                 Container(
-                                    color: Colors.red, height: 3, width: 150),
+                                    color: !view
+                                        ? Colors.blue
+                                        : Colors.transparent,
+                                    height: 3,
+                                    width: 150),
                               ],
                             ),
                           ],
@@ -109,7 +165,7 @@ class _EntryExitViewState extends State<EntryExitView> {
                                 width: 15,
                               ),
                               Text(
-                                'Allowed',
+                                'Authorised',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
@@ -134,7 +190,7 @@ class _EntryExitViewState extends State<EntryExitView> {
                                 width: 15,
                               ),
                               Text(
-                                'Not Allowed',
+                                'Non Authorised',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,

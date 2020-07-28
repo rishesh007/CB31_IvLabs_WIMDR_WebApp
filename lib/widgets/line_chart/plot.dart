@@ -124,13 +124,13 @@ class _PlotViewState extends State<PlotView> {
               children: <Widget>[
                 RaisedButton(
                   color: isMonthly ? Colors.blue : Colors.blue.withOpacity(0.3),
-                  onPressed: changePlot,
+                  onPressed: isMonthly? (){}: changePlot,
                   child: Text('Monthly'),
                   elevation: (isMonthly ? 5:1),
                 ),
                 RaisedButton(
                   color: !isMonthly ? Colors.blue : Colors.blue.withOpacity(0.3),
-                  onPressed: changePlot,
+                  onPressed: !isMonthly? (){}: changePlot,
                   child: Text('Daily'),
                   elevation: (!isMonthly ? 5:1),
                 ),

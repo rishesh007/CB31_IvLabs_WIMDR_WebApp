@@ -1,4 +1,5 @@
 import 'package:falcon_vision/models/overview.dart';
+import 'package:falcon_vision/widgets/table_widget/table_model.dart';
 import 'package:flutter/material.dart';
 
 class Gate {
@@ -6,11 +7,16 @@ class Gate {
   num gateNumber;
   bool isSelected;
   List<OverviewData> overviewData;
-  Gate(
-      {@required this.gateNumber,
-      @required this.name,
-      @required this.isSelected,
-      @required this.overviewData});
+  List<VehicleData> vehicleEntryData;
+  List<VehicleData> vehicleExitData;
+  Gate({
+    @required this.gateNumber,
+    @required this.name,
+    @required this.isSelected,
+    @required this.overviewData,
+    this.vehicleEntryData,
+    this.vehicleExitData,
+  });
 }
 
 List<Gate> gateItems = [];

@@ -56,7 +56,14 @@ class _UserItemsState extends State<UserItems> {
             // ),
             ClipRRect(
               borderRadius: BorderRadius.circular(25.0),
-              child: userList[widget.userNumber].image,
+              child: (userList[widget.userNumber].name.toUpperCase() ==
+                      "RISHESH AGARWAL")
+                  ? Image.asset(
+                      'images/rishesh.jpeg',
+                      width: 50,
+                      height: 50,
+                    )
+                  : userList[widget.userNumber].image,
             ),
             Spacer(),
             Column(
@@ -71,7 +78,9 @@ class _UserItemsState extends State<UserItems> {
                       fontWeight: FontWeight.w600),
                 ),
                 // Spacer(),
-                SizedBox(height: 4,),
+                SizedBox(
+                  height: 4,
+                ),
                 Text(
                   userList[widget.userNumber].email.toLowerCase(),
                   style: TextStyle(
