@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'register_view.dart';
 
 class RegisterWrapper extends StatefulWidget {
-  final Function changeToDashboard;
-  final Function toggleView;
+  // final Function changeToDashboard;
+  // final Function toggleView;
 
-  const RegisterWrapper(
-      {Key key, @required this.toggleView, this.changeToDashboard})
-      : super(key: key);
+  // const RegisterWrapper(
+  //     {Key key, this.toggleView, this.changeToDashboard})
+  //     : super(key: key);
 
   @override
   _RegisterWrapperState createState() => _RegisterWrapperState();
@@ -122,7 +122,7 @@ class _RegisterWrapperState extends State<RegisterWrapper> {
     if (steps == 0) {
       return RegisterView(
         setStep0: setStep0,
-        toggleView: widget.toggleView,
+        // toggleView: widget.toggleView,
         changeStep: changeSteps,
       );
     } else if (steps == 1) {
@@ -143,7 +143,7 @@ class _RegisterWrapperState extends State<RegisterWrapper> {
       return Step4(
         pushData: pushDataIntoDatabase,
         setStep4: setStep4,
-        changeStep: widget.changeToDashboard,
+        // changeStep: widget.changeToDashboard,
       );
     }
     return null;

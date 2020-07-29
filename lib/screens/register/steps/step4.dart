@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Step4 extends StatefulWidget {
-  final Function changeStep;
+  // final Function changeStep;
   final Function setStep4;
   final Function pushData;
-  const Step4({Key key, this.changeStep, this.setStep4, this.pushData})
+  const Step4({Key key, /*this.changeStep,*/ this.setStep4, this.pushData})
       : super(key: key);
 
   @override
@@ -435,7 +435,8 @@ class _Step4State extends State<Step4> {
                               // push database;
                               // pushRegisterData();
                               widget.pushData();
-                              widget.changeStep();
+                              Navigator.pushNamed(context, '/user');
+                              // widget.changeStep();
                             });
                             
                           },

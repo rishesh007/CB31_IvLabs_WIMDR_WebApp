@@ -16,13 +16,13 @@ import 'package:falcon_vision/screens/main_screen/settings/settings.dart';
 import 'package:falcon_vision/widgets/navigation_drawer/navigation_drawer_widger.dart';
 import 'package:falcon_vision/widgets/top_bar/top_nav_view.dart';
 
-// import 'dart:html' as html;
+import 'dart:html' as html;
 
 class MainScreen extends StatefulWidget {
-  final Function changeToDashboard;
+  // final Function changeToDashboard;
   const MainScreen({
     Key key,
-    this.changeToDashboard,
+    // this.changeToDashboard,
   }) : super(key: key);
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -31,7 +31,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
   // double navBarWidth = 230;
-
+  bool firstTime = true;
+  // var now = new DateTime.now();
   var iskebaad = false;
   static num screen = 1;
   AnimationController _animationController;
@@ -41,8 +42,8 @@ class _MainScreenState extends State<MainScreen>
   @override
   void initState() {
     super.initState();
-    // html.window.location.reload();
-    getData();
+
+    // getData();
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 300));
     widthAnimation =
@@ -60,6 +61,8 @@ class _MainScreenState extends State<MainScreen>
       return docSnapshot.data;
     }).toList();
     setState(() {
+      userList = [];
+      print(mainEmail);
       for (int i = 0; i < list.length; i++) {
         if (list[i]['email'] == mainEmail) {
           mainAuthId = list[i]['id'];
@@ -110,6 +113,7 @@ class _MainScreenState extends State<MainScreen>
   }
 
   Future<bool> getAllGateData(List<String> _list) async {
+    gateItems = [];
     for (int i = 0; i < 3; i++) {
       List<DocumentSnapshot> templist, templist2, templist3;
       List<Map<dynamic, dynamic>> list = new List();
@@ -187,6 +191,7 @@ class _MainScreenState extends State<MainScreen>
           );
           _exit.add(_e);
         }
+
         Gate _g = Gate(
           gateNumber: i,
           isSelected: (i == 0) ? true : false,
@@ -262,7 +267,8 @@ class _MainScreenState extends State<MainScreen>
     setState(() {
       screen = val + 1;
       if (screen == 4) {
-        widget.changeToDashboard();
+        // widget.changeToDashboard();
+        Navigator.pop(context);
       }
       if (screen == 3) {
         _screen = 0;
@@ -288,6 +294,16 @@ class _MainScreenState extends State<MainScreen>
 
   @override
   Widget build(BuildContext context) {
+    if (firstTime) {
+      
+      getData();
+      firstTime = !firstTime;
+    }
+    // now = new DateTime.now();
+    // if(now.minute.toDouble()%2 == 0){
+    //   html.window.location.reload();
+    // }
+    // getData();
     // print(gateItems[]);
     // Function changeToDashboard = widget.changeToDashboard;
     if (iskebaad) {
@@ -296,14 +312,14 @@ class _MainScreenState extends State<MainScreen>
         entryData = gateItems[gateNumber].vehicleEntryData;
         exitData = gateItems[gateNumber].vehicleExitData;
       });
-      Function changeToDashboard = widget.changeToDashboard;
+      // Function changeToDashboard = widget.changeToDashboard;
       // print(gateItems[gateNumber].overviewData);
       return AnimatedBuilder(
         animation: _animationController,
         builder: (context, widget) => Row(
           children: <Widget>[
             NavigationDrawer(
-              changeToDashboard: changeToDashboard,
+              // changeToDashboard: changeToDashboard,
               changeWidth: changeWidth,
               changeScreen: changeScreen,
             ),

@@ -23,11 +23,11 @@ class _WrapperState extends State<Wrapper> {
 
     if (isDashboard == false) {
       return Authenticate(
-        changeToDashboard: changeToDashboard,
+        // changeToDashboard: changeToDashboard,
       );
     } else {
       return MainScreen(
-        changeToDashboard: changeToDashboard,
+        // changeToDashboard: changeToDashboard,
       );
     }
   }

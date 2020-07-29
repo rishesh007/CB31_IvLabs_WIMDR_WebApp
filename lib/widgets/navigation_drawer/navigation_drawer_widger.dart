@@ -5,11 +5,11 @@ import 'navigation_theme.dart';
 
 class NavigationDrawer extends StatefulWidget {
   // double navBarWidth;
-  final Function changeToDashboard;
+  // final Function changeToDashboard;
   final Function changeScreen;
   final Function changeWidth;
   NavigationDrawer(
-      {this.changeScreen, this.changeWidth,@required this.changeToDashboard});
+      {this.changeScreen, this.changeWidth,/*@required this.changeToDashboard*/});
   @override
   _NavigationDrawerState createState() => _NavigationDrawerState();
 }

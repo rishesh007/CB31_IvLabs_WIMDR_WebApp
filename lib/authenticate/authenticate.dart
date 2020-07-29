@@ -14,16 +14,16 @@ class Authenticate extends StatefulWidget {
 class _AuthenticateState extends State<Authenticate> {
   bool showSignIn = true;
   void toggleView() {
-    print(showSignIn.toString());
+    // print(showSignIn.toString());
     setState(() => showSignIn = !showSignIn);
   }
 
   @override
   Widget build(BuildContext context) {
     if (showSignIn) {
-      return DesktopLogin(toggleView: toggleView,changeToDashboard: widget.changeToDashboard,);
+      return DesktopLogin(/*toggleView: toggleView,changeToDashboard: widget.changeToDashboard,*/);
     } else {
-      return RegisterWrapper(toggleView: toggleView,changeToDashboard: widget.changeToDashboard,);
+      return RegisterWrapper(/*toggleView: toggleView,changeToDashboard: widget.changeToDashboard,*/);
     }
   }
 }

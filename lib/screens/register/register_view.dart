@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class RegisterView extends StatefulWidget {
-  final Function toggleView;
+  // final Function toggleView;
   final Function changeStep;
   final Function setStep0;
-  const RegisterView({Key key, this.toggleView, this.changeStep, this.setStep0})
+  const RegisterView({Key key, /*this.toggleView,*/ this.changeStep, this.setStep0})
       : super(key: key);
 
   @override
@@ -303,7 +303,8 @@ class _RegisterViewState extends State<RegisterView> {
                           SelectableText('Alredy have an Account?'),
                           GestureDetector(
                             onTap: () {
-                              widget.toggleView();
+                              // widget.toggleView();
+                              Navigator.pop(context);
                               // print('change to login');
                             },
                             child: Text(

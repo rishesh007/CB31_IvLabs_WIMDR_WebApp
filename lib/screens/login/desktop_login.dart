@@ -3,10 +3,10 @@ import 'package:falcon_vision/screens/loading/loading.dart';
 import 'package:flutter/material.dart';
 
 class DesktopLogin extends StatefulWidget {
-  final Function toggleView;
-  final Function changeToDashboard;
-  const DesktopLogin({Key key, this.toggleView, this.changeToDashboard})
-      : super(key: key);
+  // final Function toggleView;
+  // final Function changeToDashboard;
+  // const DesktopLogin({Key key, this.toggleView, this.changeToDashboard})
+  //     : super(key: key);
   @override
   _DesktopLoginState createState() => _DesktopLoginState();
 }
@@ -240,7 +240,8 @@ class _DesktopLoginState extends State<DesktopLogin> {
                                             mainEmail = _email;
                                             mainPassword = _password;
                                           });
-                                          widget.changeToDashboard();
+                                          // widget.changeToDashboard();
+                                          Navigator.pushNamed(context, '/user');
                                         },
                                         child: Text(
                                           'Log in',
@@ -276,7 +277,9 @@ class _DesktopLoginState extends State<DesktopLogin> {
                                         ),
                                         new GestureDetector(
                                           onTap: () {
-                                            widget.toggleView();
+                                            // widget.toggleView();
+                                            Navigator.pushNamed(
+                                                context, '/register');
                                             print('gesture detected');
                                           },
                                           child: Text(
