@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
       theme: ThemeData(
         primaryColor: Colors.blue,
         fontFamily: 'archiaregular',
@@ -22,3 +23,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// https://falcon-vision-b63de.web.app/main_web_entrypoint.dart.js.map#/

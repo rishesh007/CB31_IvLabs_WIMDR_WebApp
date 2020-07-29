@@ -1,3 +1,4 @@
+import 'package:falcon_vision/models/gate.dart';
 import 'package:falcon_vision/widgets/table_widget/table.dart';
 import 'package:falcon_vision/widgets/table_widget/table_model.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,13 @@ class EntryExitView extends StatefulWidget {
 class _EntryExitViewState extends State<EntryExitView> {
   bool view = true;
   var now = new DateTime.now();
+
+  @override
+  void initState() {
+    getVehicleData();
+    super.initState();
+  }
+
   void chageView() {
     setState(() {
       view = !view;
@@ -28,9 +36,73 @@ class _EntryExitViewState extends State<EntryExitView> {
     });
   }
 
+  void funcFilter(List<String> selectedCountList, List<String> countList) {
+    setState(() {
+      List<bool> visited = [];
+      for (int i = 0; i < vehicleData.length; i++) {
+        visited.add(false);
+      }
+      getVehicleData();
+      List<VehicleData> _v = [];
+      List<num> _query = [];
+      for (int i = 0; i < selectedCountList.length; i++) {
+        for (int j = 0; j < countList.length; j++) {
+          if (selectedCountList[i] == countList[j]) {
+            _query.add(j);
+          }
+        }
+      }
+      for (int i = 0; i < _query.length; i++) {
+        for (int j = 0; j < vehicleData.length; j++) {
+          if (_query[i] < 24) {
+            String _s = vehicleData[j].time.substring(0, 2);
+            int time = int.parse(_s);
+            // print(_query[i].toString() + " " + time.toString());
+            if (time == _query[i]) {
+              // print("in if");
+              visited[j] = true;
+            }
+          } else if (_query[i] == 24) {
+            if (vehicleData[j].vehicleType == countList[24]) {
+              visited[j] = true;
+            }
+          } else if (_query[i] == 25) {
+            if (vehicleData[j].vehicleType == countList[25]) {
+              visited[j] = true;
+            }
+          } else if (_query[i] == 26) {
+            if (vehicleData[j].vehicleType == countList[26]) {
+              visited[j] = true;
+            }
+          } else if (_query[i] == 27) {
+            if (vehicleData[j].auth != "FALSE") {
+              visited[j] = true;
+            }
+          } else if (_query[i] == 28) {
+            if (vehicleData[j].auth == "FALSE") {
+              visited[j] = true;
+            }
+          }
+        }
+      }
+      for (int i = 0; i < visited.length; i++) {
+        // print(visited[i].toString());
+        if (visited[i]) {
+          _v.add(vehicleData[i]);
+          // print(vehicleData[i].numberPlate +
+          //     " " +
+          //     gateItems[gateNumber].name +
+          //     " ");
+        }
+      }
+
+      vehicleData = _v;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    getVehicleData();
+    // getVehicleData();
     // print(entryData.length);
     // print(MediaQuery.of(context).size.height);
     return Container(
@@ -133,7 +205,11 @@ class _EntryExitViewState extends State<EntryExitView> {
                                     fontSize: 20, fontWeight: FontWeight.w500),
                               ),
                               Text(
-                                now.day.toString() + "-" + now.month.toString() + "-" + now.year.toString(),
+                                now.day.toString() +
+                                    "-" +
+                                    now.month.toString() +
+                                    "-" +
+                                    now.year.toString(),
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w500),
                               ),
@@ -205,6 +281,8 @@ class _EntryExitViewState extends State<EntryExitView> {
                 ),
                 TableData(
                   width: widget.width,
+                  funcFilter: funcFilter,
+                  getVehicleData: getVehicleData,
                 ),
                 // Expanded(child: Container())
               ],

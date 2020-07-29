@@ -1,13 +1,17 @@
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/material.dart';
-
+import 'package:falcon_vision/models/gate.dart';
 import 'package:falcon_vision/widgets/table_widget/table_model.dart';
 
 class TableData extends StatefulWidget {
   final double width;
+  final Function funcFilter;
+  final Function getVehicleData;
   TableData({
     Key key,
     this.width,
+    this.funcFilter,
+    this.getVehicleData,
   }) : super(key: key);
   @override
   _TableDataState createState() => _TableDataState();
@@ -79,57 +83,13 @@ class _TableDataState extends State<TableData> {
 
     if (list != null) {
       setState(() {
-        selectedCountList = List.from(list);
-        List<bool> visited = [];
-        for (int i = 0; i < vehicleData.length; i++) {
-          visited.add(false);
+        if (list.length == 0) {
+          widget.getVehicleData();
+          selectedCountList = [];
+        } else {
+          selectedCountList = List.from(list);
+          widget.funcFilter(selectedCountList, countList);
         }
-        List<VehicleData> _v = [];
-        List<num> _query = [];
-        for (int i = 0; i < selectedCountList.length; i++) {
-          for (int j = 0; j < countList.length; j++) {
-            if (selectedCountList[i] == countList[j]) {
-              _query.add(j);
-            }
-          }
-        }
-        for (int i = 0; i < _query.length; i++) {
-          for (int j = 0; j < vehicleData.length; j++) {
-            if (_query[i] < 24) {
-              String _s = vehicleData[j].time.substring(0, 2);
-              int time = int.parse(_s);
-              if (time == _query[i]) {
-                visited[j] = true;
-              }
-            } else if (_query[i] == 24) {
-              if (vehicleData[j].vehicleType == countList[24]) {
-                visited[j] = true;
-              }
-            } else if (_query[i] == 25) {
-              if (vehicleData[j].vehicleType == countList[25]) {
-                visited[j] = true;
-              }
-            } else if (_query[i] == 26) {
-              if (vehicleData[j].vehicleType == countList[26]) {
-                visited[j] = true;
-              }
-            } else if (_query[i] == 27) {
-              if (vehicleData[j].auth != "FALSE") {
-                visited[j] = true;
-              }
-            } else if (_query[i] == 28) {
-              if (vehicleData[j].auth == "FALSE") {
-                visited[j] = true;
-              }
-            }
-          }
-        }
-        for (int i = 0; i < visited.length; i++) {
-          if (visited[i]) {
-            _v.add(vehicleData[i]);
-          }
-        }
-        vehicleData = _v;
       });
     }
   }
@@ -154,6 +114,7 @@ class _TableDataState extends State<TableData> {
 
   @override
   Widget build(BuildContext context) {
+    dts = DTS();
     return Container(
       padding: EdgeInsets.fromLTRB(250, 0, 250, 0),
       child: PaginatedDataTable(
@@ -163,10 +124,15 @@ class _TableDataState extends State<TableData> {
           // color: Colors.grey[300],
           child: InkWell(
             onTap: () async {
+              // for (int i = 0; i < vehicleData.length; i++) {
+              //   print(vehicleData[i].auth);
+              // }
               await _openFilterList();
-              for (int i = 0; i < selectedCountList.length; i++) {
-                print(selectedCountList[i]);
-              }
+
+              // print('do');
+              // for (int i = 0; i < vehicleData.length; i++) {
+              //   print(vehicleData[i].auth);
+              // }
             },
             child: Row(
               children: <Widget>[
