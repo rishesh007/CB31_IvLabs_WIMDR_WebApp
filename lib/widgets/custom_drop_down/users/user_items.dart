@@ -56,14 +56,12 @@ class _UserItemsState extends State<UserItems> {
             // ),
             ClipRRect(
               borderRadius: BorderRadius.circular(25.0),
-              child: (userList[widget.userNumber].name.toUpperCase() ==
-                      "RISHESH AGARWAL")
-                  ? Image.asset(
-                      'images/rishesh.jpeg',
-                      width: 50,
-                      height: 50,
-                    )
-                  : userList[widget.userNumber].image,
+              child: Container(
+                width: 50.0,
+                height: 50.0, 
+                child: Icon(Icons.person,
+                ),
+              )
             ),
             Spacer(),
             Column(

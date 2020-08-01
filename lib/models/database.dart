@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:falcon_vision/models/gate.dart';
-import 'package:falcon_vision/models/overview.dart';
 import 'package:falcon_vision/models/users.dart';
 
 List<String> authIds = [];
 List<User> allUser = [];
 List<String> userDocumentIds = [];
-String mainEmail;
+String mainEmail = 'rishesh.pro@gmail.com';
 String mainPassword;
 String mainAuthId;
 String city;
