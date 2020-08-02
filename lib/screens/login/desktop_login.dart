@@ -306,10 +306,11 @@ class _DesktopLoginState extends State<DesktopLogin> {
                       flex: (MediaQuery.of(context).size.width < 500) ? 1 : 2,
                       child: Center(
                         child: Material(
+                          color: Color(0xffC5CAE9),
                           borderRadius: BorderRadius.circular(17),
                           child: Image.network(
-                            'https://media.giphy.com/media/H6fu8xp9AHusU/giphy.gif',
-                            fit: BoxFit.cover,
+                            'https://cdn01.vulcanpost.com/wp-uploads/2018/08/Linkzzapp-GIF-2.gif',
+                            fit: BoxFit.fill,
                             height: double.infinity,
                             width: double.infinity,
                           ),
