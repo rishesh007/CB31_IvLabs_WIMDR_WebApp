@@ -319,7 +319,7 @@ class DTS extends DataTableSource {
           width: 150,
           child: Center(
             child: Text(
-              vehicleData[index].time,
+              vehicleData[index].time.substring(0,5),
               style: TextStyle(
                   color: vehicleData[index].auth == 'FALSE'
                       ? Colors.red[900]
