@@ -33,4 +33,8 @@ The firebase integrates the number plate detection algorithm with the web applic
 
 ![settings](images/settings.png)
 
+5. **Add or Block User**: Allows the authority or consumer to Add or Block a particular vehicle 
+
+![settings](images/authentication.png)
+
 The final interface working can be found [here](https://drive.google.com/file/d/1BMA6nsOvdXIhl4wpWVG8JOcQKpyvZRZE/view?usp=sharing)
