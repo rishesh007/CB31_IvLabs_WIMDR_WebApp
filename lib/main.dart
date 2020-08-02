@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Falcon Vision',
       home: Scaffold(
-        body: Wrapper(),
+        body: DesktopLogin(),
       ),
     );
   }

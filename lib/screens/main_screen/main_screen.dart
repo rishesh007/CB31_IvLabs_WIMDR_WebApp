@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:falcon_vision/screens/main_screen/authVehicle/authVehicle.dart';
 import 'package:falcon_vision/screens/main_screen/settings/add_user.dart';
 import 'package:falcon_vision/screens/main_screen/settings/change_password.dart';
 import 'package:falcon_vision/screens/main_screen/settings/change_username.dart';
@@ -15,8 +16,6 @@ import 'package:falcon_vision/screens/main_screen/notification/notifcation.dart'
 import 'package:falcon_vision/screens/main_screen/settings/settings.dart';
 import 'package:falcon_vision/widgets/navigation_drawer/navigation_drawer_widger.dart';
 import 'package:falcon_vision/widgets/top_bar/top_nav_view.dart';
-
-import 'dart:html' as html;
 
 class MainScreen extends StatefulWidget {
   // final Function changeToDashboard;
@@ -266,7 +265,7 @@ class _MainScreenState extends State<MainScreen>
   void changeScreen(num val) {
     setState(() {
       screen = val + 1;
-      if (screen == 4) {
+      if (screen == 5) {
         // widget.changeToDashboard();
         Navigator.pop(context);
       }
@@ -365,6 +364,9 @@ class _MainScreenState extends State<MainScreen>
                         widthAnimation.value,
                     changeSettingScreen: changeSettingScreen,
                   ),
+                if(screen == 4)
+                  AuthVehicle(width: MediaQuery.of(context).size.width -
+                        widthAnimation.value,),
               ],
             ),
           ],

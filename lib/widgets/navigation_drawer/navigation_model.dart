@@ -11,5 +11,6 @@ List<NavigationModel> navigationItems = [
   NavigationModel(title: "Dashboard", icon: Icons.dashboard),
   NavigationModel(title: "Notifications", icon: Icons.notifications),
   NavigationModel(title: "Settings", icon: Icons.settings),
+  NavigationModel(title: "Authenticate",icon: Icons.verified_user),
   NavigationModel(title: "Logout", icon: Icons.exit_to_app),
 ];
