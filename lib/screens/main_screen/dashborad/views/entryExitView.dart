@@ -63,15 +63,15 @@ class _EntryExitViewState extends State<EntryExitView> {
               visited[j] = true;
             }
           } else if (_query[i] == 24) {
-            if (vehicleData[j].vehicleType == countList[24]) {
+            if (vehicleData[j].vehicleType.toUpperCase() == countList[24].toUpperCase()) {
               visited[j] = true;
             }
           } else if (_query[i] == 25) {
-            if (vehicleData[j].vehicleType == countList[25]) {
+            if (vehicleData[j].vehicleType.toUpperCase() == countList[25].toUpperCase()) {
               visited[j] = true;
             }
           } else if (_query[i] == 26) {
-            if (vehicleData[j].vehicleType == countList[26]) {
+            if (vehicleData[j].vehicleType.toUpperCase() == countList[26].toUpperCase()) {
               visited[j] = true;
             }
           } else if (_query[i] == 27) {
@@ -241,7 +241,7 @@ class _EntryExitViewState extends State<EntryExitView> {
                                 width: 15,
                               ),
                               Text(
-                                'Authorised',
+                                'Registered',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
@@ -266,7 +266,7 @@ class _EntryExitViewState extends State<EntryExitView> {
                                 width: 15,
                               ),
                               Text(
-                                'Non Authorised',
+                                'Non Registered',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
