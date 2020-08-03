@@ -26,10 +26,38 @@ class _TableDataState extends State<TableData> {
   bool _sortNoOfVisits = true;
   bool _sortAsc = true;
   int _sortColumnIndex = 1;
-
+  OverlayEntry _overlayEntry;
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> getIndex(int index) async {
+
+    OverlayState _overlayState = Overlay.of(context);
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        left: (MediaQuery.of(context).size.width / 2) - 200,
+        width: 400,
+        top: MediaQuery.of(context).size.height / 3,
+        height: 300,
+        child: Card(
+          child: Container(
+            padding: EdgeInsets.all(20),
+            color: Colors.blue[100],
+            child: Image.network(
+              vehicleData[index].url,
+              width: 400,
+              height: 400,
+            ),
+          ),
+        ),
+      ),
+    );
+    print(vehicleData[index].url);
+    _overlayState.insert(_overlayEntry);
+    await Future.delayed(Duration(seconds: 5));
+    _overlayEntry.remove();
   }
 
   List<String> vehicleType = ['Car', 'Motorbike', 'Truck', 'Others'];
@@ -114,7 +142,7 @@ class _TableDataState extends State<TableData> {
 
   @override
   Widget build(BuildContext context) {
-    dts = DTS();
+    dts = DTS(getIndex: getIndex);
     return Container(
       padding: EdgeInsets.fromLTRB(250, 0, 250, 0),
       child: PaginatedDataTable(
@@ -169,7 +197,7 @@ class _TableDataState extends State<TableData> {
                 if (!_sortAsc) {
                   vehicleData = vehicleData.reversed.toList();
                 }
-                dts = DTS();
+                dts = DTS(getIndex: getIndex);
               });
             },
           ),
@@ -195,7 +223,7 @@ class _TableDataState extends State<TableData> {
                 if (!_sortAsc) {
                   vehicleData = vehicleData.reversed.toList();
                 }
-                dts = DTS();
+                dts = DTS(getIndex: getIndex);
               });
               // for (int i = 0; i < vehicleData.length; i++) {
               //   print(vehicleData[i].time);
@@ -224,7 +252,7 @@ class _TableDataState extends State<TableData> {
                 if (!_sortAsc) {
                   vehicleData = vehicleData.reversed.toList();
                 }
-                dts = DTS();
+                dts = DTS(getIndex: getIndex);
               });
             },
           ),
@@ -251,7 +279,7 @@ class _TableDataState extends State<TableData> {
                 if (!_sortAsc) {
                   vehicleData = vehicleData.reversed.toList();
                 }
-                dts = DTS();
+                dts = DTS(getIndex: getIndex);
               });
             },
           ),
@@ -279,7 +307,7 @@ class _TableDataState extends State<TableData> {
                 if (!_sortAsc) {
                   vehicleData = vehicleData.reversed.toList();
                 }
-                dts = DTS();
+                dts = DTS(getIndex: getIndex);
               });
             },
           ),
@@ -295,6 +323,9 @@ class _TableDataState extends State<TableData> {
 }
 
 class DTS extends DataTableSource {
+  Function getIndex;
+  DTS({this.getIndex});
+
   @override
   DataRow getRow(int index) {
     return DataRow.byIndex(cells: [
@@ -302,14 +333,19 @@ class DTS extends DataTableSource {
         Container(
           width: 150,
           child: Center(
-            child: Text(
-              vehicleData[index].numberPlate,
-              style: TextStyle(
-                  color: vehicleData[index].auth == 'FALSE'
-                      ? Colors.red[900]
-                      : Colors.blue[900],
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400),
+            child: GestureDetector(
+              onTap: () {
+                getIndex(index);
+              },
+              child: Text(
+                vehicleData[index].numberPlate,
+                style: TextStyle(
+                    color: vehicleData[index].auth == 'FALSE'
+                        ? Colors.red[900]
+                        : Colors.blue[900],
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400),
+              ),
             ),
           ),
         ),
@@ -318,14 +354,20 @@ class DTS extends DataTableSource {
         Container(
           width: 150,
           child: Center(
-            child: Text(
-              vehicleData[index].time.substring(0,5),
-              style: TextStyle(
+            child: GestureDetector(
+              child: Text(
+                vehicleData[index].time.substring(0, 5),
+                style: TextStyle(
                   color: vehicleData[index].auth == 'FALSE'
                       ? Colors.red[900]
                       : Colors.blue[900],
                   fontSize: 15,
-                  fontWeight: FontWeight.w400),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              onTap: () async {
+                getIndex(index);
+              },
             ),
           ),
         ),
@@ -334,14 +376,19 @@ class DTS extends DataTableSource {
         Container(
           width: 150,
           child: Center(
-            child: Text(
-              vehicleData[index].auth,
-              style: TextStyle(
-                  color: vehicleData[index].auth == 'FALSE'
-                      ? Colors.red[900]
-                      : Colors.blue[900],
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400),
+            child: GestureDetector(
+              onTap: () {
+                getIndex(index);
+              },
+              child: Text(
+                vehicleData[index].auth,
+                style: TextStyle(
+                    color: vehicleData[index].auth == 'FALSE'
+                        ? Colors.red[900]
+                        : Colors.blue[900],
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400),
+              ),
             ),
           ),
         ),
@@ -350,14 +397,19 @@ class DTS extends DataTableSource {
         Container(
           width: 150,
           child: Center(
-            child: Text(
-              vehicleData[index].vehicleType,
-              style: TextStyle(
-                  color: vehicleData[index].auth == 'FALSE'
-                      ? Colors.red[900]
-                      : Colors.blue[900],
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400),
+            child: GestureDetector(
+              onTap: () {
+                getIndex(index);
+              },
+              child: Text(
+                vehicleData[index].vehicleType,
+                style: TextStyle(
+                    color: vehicleData[index].auth == 'FALSE'
+                        ? Colors.red[900]
+                        : Colors.blue[900],
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400),
+              ),
             ),
           ),
         ),
@@ -366,14 +418,19 @@ class DTS extends DataTableSource {
         Container(
           width: 150,
           child: Center(
-            child: Text(
-              '${vehicleData[index].noOfVisits}',
-              style: TextStyle(
-                  color: vehicleData[index].auth == 'FALSE'
-                      ? Colors.red[900]
-                      : Colors.blue[900],
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400),
+            child: GestureDetector(
+              onTap: () {
+                getIndex(index);
+              },
+              child: Text(
+                '${vehicleData[index].noOfVisits}',
+                style: TextStyle(
+                    color: vehicleData[index].auth == 'FALSE'
+                        ? Colors.red[900]
+                        : Colors.blue[900],
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400),
+              ),
             ),
           ),
         ),

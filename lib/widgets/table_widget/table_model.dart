@@ -4,11 +4,13 @@ class VehicleData {
   String auth;
   String vehicleType;
   num noOfVisits;
+  String url;
   VehicleData({
     this.time,
     this.numberPlate,
     this.auth,
     this.vehicleType,
+    this.url,
     this.noOfVisits,
   });
 
@@ -17,6 +19,7 @@ class VehicleData {
       'time': time,
       'numberPlate': numberPlate,
       'auth': auth,
+      'url' : url,
       'vehicleType': vehicleType,
       'noOfVisits': noOfVisits,
     };
@@ -29,6 +32,7 @@ class VehicleData {
       time: map['time'],
       numberPlate: map['numberPlate'],
       auth: map['auth'],
+      url: map['url'],
       vehicleType: map['vehicleType'],
       noOfVisits: map['noOfVisits'],
     );

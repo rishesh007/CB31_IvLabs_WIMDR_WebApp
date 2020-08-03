@@ -176,6 +176,7 @@ class _MainScreenState extends State<MainScreen>
             numberPlate: list2[j]['number'],
             time: list2[j]['time'],
             vehicleType: list2[j]['type'],
+            url: list2[j]['url'],
           );
           _entry.add(_e);
         }
@@ -187,6 +188,7 @@ class _MainScreenState extends State<MainScreen>
             numberPlate: list3[j]['number'],
             time: list3[j]['time'],
             vehicleType: list3[j]['type'],
+            url: list3[j]['url'],
           );
           _exit.add(_e);
         }
