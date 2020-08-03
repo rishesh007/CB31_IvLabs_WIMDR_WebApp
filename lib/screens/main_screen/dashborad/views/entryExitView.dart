@@ -1,4 +1,3 @@
-import 'package:falcon_vision/models/gate.dart';
 import 'package:falcon_vision/widgets/table_widget/table.dart';
 import 'package:falcon_vision/widgets/table_widget/table_model.dart';
 import 'package:flutter/material.dart';
@@ -63,23 +62,30 @@ class _EntryExitViewState extends State<EntryExitView> {
               visited[j] = true;
             }
           } else if (_query[i] == 24) {
-            if (vehicleData[j].vehicleType.toUpperCase() == countList[24].toUpperCase()) {
+            if (vehicleData[j].vehicleType.toUpperCase() ==
+                countList[24].toUpperCase()) {
               visited[j] = true;
             }
           } else if (_query[i] == 25) {
-            if (vehicleData[j].vehicleType.toUpperCase() == countList[25].toUpperCase()) {
+            if (vehicleData[j].vehicleType.toUpperCase() ==
+                countList[25].toUpperCase()) {
               visited[j] = true;
             }
           } else if (_query[i] == 26) {
-            if (vehicleData[j].vehicleType.toUpperCase() == countList[26].toUpperCase()) {
+            if (vehicleData[j].vehicleType.toUpperCase() ==
+                countList[26].toUpperCase()) {
               visited[j] = true;
             }
           } else if (_query[i] == 27) {
-            if (vehicleData[j].auth != "FALSE") {
+            if (vehicleData[j].auth == 1) {
               visited[j] = true;
             }
           } else if (_query[i] == 28) {
-            if (vehicleData[j].auth == "FALSE") {
+            if (vehicleData[j].auth == 0) {
+              visited[j] = true;
+            }
+          } else if (_query[i] == 29) {
+            if (vehicleData[j].auth == 2) {
               visited[j] = true;
             }
           }
@@ -233,7 +239,7 @@ class _EntryExitViewState extends State<EntryExitView> {
                                 width: 15.0,
                                 height: 15.0,
                                 decoration: new BoxDecoration(
-                                  color: Colors.blue,
+                                  color: Colors.green[900],
                                   shape: BoxShape.circle,
                                 ),
                               ),
@@ -258,7 +264,7 @@ class _EntryExitViewState extends State<EntryExitView> {
                                 width: 15.0,
                                 height: 15.0,
                                 decoration: new BoxDecoration(
-                                  color: Colors.red,
+                                  color: Colors.blue[900],
                                   shape: BoxShape.circle,
                                 ),
                               ),
@@ -267,6 +273,31 @@ class _EntryExitViewState extends State<EntryExitView> {
                               ),
                               Text(
                                 'Non Registered',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                width: 15.0,
+                                height: 15.0,
+                                decoration: new BoxDecoration(
+                                  color: Colors.red[900],
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Text(
+                                'Blacklist',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,

@@ -171,7 +171,7 @@ class _MainScreenState extends State<MainScreen>
         List<VehicleData> _entry = [];
         for (int j = 0; j < list2.length; j++) {
           VehicleData _e = VehicleData(
-            auth: list2[j]['registered'].toString().toUpperCase(),
+            auth: list2[j]['registered'],
             noOfVisits: list2[j]['visit'],
             numberPlate: list2[j]['number'],
             time: list2[j]['time'],
@@ -183,7 +183,7 @@ class _MainScreenState extends State<MainScreen>
         List<VehicleData> _exit = [];
         for (int j = 0; j < list3.length; j++) {
           VehicleData _e = VehicleData(
-            auth: list3[j]['registered'].toString().toUpperCase(),
+            auth: list3[j]['registered'],
             noOfVisits: list3[j]['visit'],
             numberPlate: list3[j]['number'],
             time: list3[j]['time'],

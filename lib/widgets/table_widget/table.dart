@@ -91,8 +91,9 @@ class _TableDataState extends State<TableData> {
     'Car',
     'Motorbike',
     'Truck',
-    'Authorised',
-    'Non Authorised',
+    'Registered',
+    'Not Registered',
+    'BlackList',
   ];
   List<String> selectedCountList = [];
 
@@ -340,9 +341,9 @@ class DTS extends DataTableSource {
               child: Text(
                 vehicleData[index].numberPlate,
                 style: TextStyle(
-                    color: vehicleData[index].auth == 'FALSE'
+                    color: vehicleData[index].auth == 2
                         ? Colors.red[900]
-                        : Colors.blue[900],
+                        : (vehicleData[index].auth == 1 ?Colors.green[900]: Colors.blue[900]),
                     fontSize: 15,
                     fontWeight: FontWeight.w400),
               ),
@@ -358,9 +359,9 @@ class DTS extends DataTableSource {
               child: Text(
                 vehicleData[index].time.substring(0, 5),
                 style: TextStyle(
-                  color: vehicleData[index].auth == 'FALSE'
-                      ? Colors.red[900]
-                      : Colors.blue[900],
+                  color: vehicleData[index].auth == 2
+                        ? Colors.red[900]
+                        : (vehicleData[index].auth == 1 ?Colors.green[900]: Colors.blue[900]),
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
                 ),
@@ -381,11 +382,11 @@ class DTS extends DataTableSource {
                 getIndex(index);
               },
               child: Text(
-                vehicleData[index].auth,
+                vehicleData[index].auth == 2 ? 'Blacklist':(vehicleData[index].auth == 1 ?'Registered': 'Not Registered'),
                 style: TextStyle(
-                    color: vehicleData[index].auth == 'FALSE'
+                    color: vehicleData[index].auth == 2
                         ? Colors.red[900]
-                        : Colors.blue[900],
+                        : (vehicleData[index].auth == 1 ?Colors.green[900]: Colors.blue[900]),
                     fontSize: 15,
                     fontWeight: FontWeight.w400),
               ),
@@ -404,9 +405,9 @@ class DTS extends DataTableSource {
               child: Text(
                 vehicleData[index].vehicleType,
                 style: TextStyle(
-                    color: vehicleData[index].auth == 'FALSE'
+                    color: vehicleData[index].auth == 2
                         ? Colors.red[900]
-                        : Colors.blue[900],
+                        : (vehicleData[index].auth == 1 ?Colors.green[900]: Colors.blue[900]),
                     fontSize: 15,
                     fontWeight: FontWeight.w400),
               ),
@@ -425,9 +426,9 @@ class DTS extends DataTableSource {
               child: Text(
                 '${vehicleData[index].noOfVisits}',
                 style: TextStyle(
-                    color: vehicleData[index].auth == 'FALSE'
+                    color: vehicleData[index].auth == 2
                         ? Colors.red[900]
-                        : Colors.blue[900],
+                        : (vehicleData[index].auth == 1 ?Colors.green[900]: Colors.blue[900]),
                     fontSize: 15,
                     fontWeight: FontWeight.w400),
               ),

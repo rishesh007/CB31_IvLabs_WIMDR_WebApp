@@ -1,7 +1,7 @@
 class VehicleData {
   String time;
   String numberPlate;
-  String auth;
+  num auth;
   String vehicleType;
   num noOfVisits;
   String url;
